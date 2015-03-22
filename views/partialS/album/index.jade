@@ -1,0 +1,14 @@
+//
+   Created by lucavgobbi on 3/21/15.
+
+div(class='center-container')
+    div(ng-repeat='album in albums')
+        div(class=['col-md-6', 'big-thumbs','text-center'],
+            style={
+                'background': 'url({{ album.currentCover }})',
+                'background-repeat': 'no-repeat',
+                'background-size': '100%'
+            })
+            h2 {{album.title}}
+            p {{album.description}}
+

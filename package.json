@@ -14,6 +14,11 @@
     "morgan": "~1.5.1",
     "serve-favicon": "~2.2.0",
     "mongodb": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "angular": "*",
+    "bootstrap": "*",
+    "jquery": "*",
+    "angular-route": "*",
+    "angular-resource": "*"
   }
 }

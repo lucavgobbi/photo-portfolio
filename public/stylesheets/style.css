@@ -1,8 +1,66 @@
+html,
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    height: 100%;
 }
 
-a {
-  color: #00B7FF;
+#wrap {
+    min-height: 100%;
+    height: 100%;
+    /* Negative indent footer by its height */
+    margin: 0 auto -82px 0;
+    /* Pad bottom by footer height */
+    padding: 0 0 80px 0;
 }
+
+/* Set the fixed height of the footer here */
+#footer {
+    height: 80px;
+    background-color: #f5f5f5;
+}
+
+
+#wrap > .center-container {
+    padding: 50px 0 0 0;
+    margin:0;
+}
+
+#footer > .container {
+    padding-top:5px
+padding-left: 15px;
+    padding-right: 15px;
+}
+
+.center-container {
+    height:100%;
+    display: table;
+    width:100%;
+    margin:0;
+}
+
+.big-thumbs {
+    height:300px;
+}
+
+.big-thumbs:hover{
+    -webkit-animation-name: thumbs-hover;
+    -webkit-animation-duration: 0.3s;
+    animation-name: thumbs-hover;
+    animation-duration: 0.3s;
+    font-size: 1.3em;
+}
+
+/*
+.center-row {
+    height:50%;
+    width:100%;
+    display: table-row;
+}
+
+.center-row > div {
+    height:100%;
+    width:50%;
+    display: table-cell;
+    border:0 solid #eee;
+    color:#fff;
+    vertical-align:middle;
+}&/

@@ -1,5 +1,17 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    #wrap
+        div(class=['navbar', 'navbar-default', 'navbar-fixed-top'])
+            div(class='container')
+                div(class='navbar-header')
+                    div(class=['collapse', 'navbar-collapse'])
+                        ul(class=['nav', 'navbar-nav'])
+                            li
+                                a(href='/#home') Home
+                            li
+                                a(href='/#portfolio') Portfolio
+                            li
+                                a(href='/#album') Albums
+        div(class='center-container', ng-view)
+
