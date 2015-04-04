@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 
 var web = require('./routes/web');
 var albums = require('./routes/albums');
+var photos = require('./routes/photos');
 
 var app = express();
 
@@ -25,12 +26,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to mongodb
-mongoose.connect('mongodb://root:r00tus3r@lucavgobbi.com:27017/admin');
+mongoose.connect('mongodb://ppUser:ppUser@lucavgobbi.com:27017/photo-portfolio');
 
 // All the routes are described here
 
 // These are the api routes
 app.use('/api/albums', albums);
+app.use('/api/photos', photos);
 
 // These are the views routes used by Angular
 app.use('/', web);

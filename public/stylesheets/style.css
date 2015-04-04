@@ -41,12 +41,10 @@ padding-left: 15px;
     height:300px;
 }
 
-.big-thumbs:hover{
-    -webkit-animation-name: thumbs-hover;
-    -webkit-animation-duration: 0.3s;
-    animation-name: thumbs-hover;
-    animation-duration: 0.3s;
-    font-size: 1.3em;
+.hvr-rectangle-out:before {
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+    background: #5a545f; !important;
 }
 
 /*
