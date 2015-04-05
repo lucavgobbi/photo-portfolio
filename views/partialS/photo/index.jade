@@ -1,0 +1,19 @@
+//
+   Created by lucavgobbi on 4/4/15.
+
+div(class='container')
+    div(class='row')
+        p(class='navbar-text')
+            a(class='btn btn-sm btn-success', href='#/photos/new') Add new photo
+    div(class='row')
+        table(class='table')
+            thead
+                th Title
+                th Short Description
+                th Actions
+            tbody(class='table-striped')
+                tr(ng-repeat='photo in photos')
+                    td {{ photo.title }}
+                    td {{ photo.shortDescription }}
+                    td
+                        a(class='btn btn-sm btn-default', href='#/photos/{{ photo.id }}') Edit

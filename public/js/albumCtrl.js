@@ -10,9 +10,10 @@ albumCtrl.controller('ListAlbums', ['$scope','$http',
             .success(function (data) {
                 $scope.albums = data.map(function (item) {
                     return {
+                        name: item._id,
                         title: item.title,
                         description: item.description,
-                        currentCover: item.covers[Math.floor((Math.random() * item.covers.length))].url
+                        cover: item.cover.url
                     }
                 });
             })

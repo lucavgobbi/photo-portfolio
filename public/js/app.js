@@ -10,9 +10,17 @@ ppApp.config(['$routeProvider',
                 templateUrl: '/home/index',
                 controller: 'ShowHome'
             })
-            .when('/album', {
+            .when('/albums', {
                 templateUrl: '/album/index',
                 controller: 'ListAlbums'
+            })
+            .when('/photos', {
+                templateUrl: '/photo/index',
+                controller: 'ListPhotos'
+            })
+            .when('/photos/:id', {
+                templateUrl: '/photo/view',
+                controller: 'ViewPhoto'
             })
             .otherwise({
                 redirectTo: '/home'

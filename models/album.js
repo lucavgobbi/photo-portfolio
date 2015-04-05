@@ -8,10 +8,11 @@ var albumSchema = new Schema({
     _id: { type: String, required: true, unique: true },
     description: String,
     shortDescription: String,
-    title: String,
-    dateCreated: Date
+    title: { type: String, required: true },
+    dateCreated: Date,
+    cover: { type: Schema.Types.ObjectId, ref: 'Photo'}
 });
 
-var album = mongoose.model('album', albumSchema);
+var album = mongoose.model('Album', albumSchema);
 
 module.exports = { Album: album };

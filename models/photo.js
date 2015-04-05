@@ -5,16 +5,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var photoSchema = new Schema({
-    name: String,
+    name: { type: String, required: true },
     description: String,
     shortDescription: String,
-    title: String,
-    url: String,
+    title: { type: String, required: true },
+    url: { type: String, required: true },
     dateTaken: Date,
     dateCreated: Date,
-    albums: [{type: String, ref: 'album'}]
+    albums: [{type: String, ref: 'Album'}]
 });
 
-var photo = mongoose.model('photo', photoSchema);
+var photo = mongoose.model('Photo', photoSchema);
 
 module.exports = { Photo: photo };
