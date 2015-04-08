@@ -1,9 +1,9 @@
 /**
  * Created by lucavgobbi on 4/4/15.
  */
-var photoCtrl = angular.module('photoCtrl', []);
+var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap']);
 
-albumCtrl.controller('ListPhotos', ['$scope','$http',
+photoCtrl.controller('ListPhotos', ['$scope','$http',
     function ($scope, $http) {
         $http.get('/api/photos')
             .success(function (data) {
@@ -18,11 +18,11 @@ albumCtrl.controller('ListPhotos', ['$scope','$http',
     }
 ]);
 
-albumCtrl.controller('ViewPhoto', ['$scope', '$routeParams', '$http',
-    function ($scope, $routeParams, $http) {
-
+photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http',
+    function ($scope, $stateParams, $http) {
+        $scope.alerts = [];
         //New
-        if ($routeParams.id == 'new') {
+        if ($stateParams.id == 'new') {
             $scope.photo = {};
 
             //Save Function
@@ -30,6 +30,7 @@ albumCtrl.controller('ViewPhoto', ['$scope', '$routeParams', '$http',
                 console.log($scope.photo);
                 $http.post('/api/photos', $scope.photo)
                     .success(function (data) {
+                        $scope.alerts.push({ type: 'success', msg: 'Photo added with success ;)'});
                         alert('Saved');
                     });
             }
@@ -37,20 +38,22 @@ albumCtrl.controller('ViewPhoto', ['$scope', '$routeParams', '$http',
         //Edit
         else {
             //Get photo
-            $http.get('/api/photos/' + $routeParams.id)
+            $http.get('/api/photos/' + $stateParams.id)
                 .success(function (data) {
                     $scope.photo = data;
 
                     //Save function
                     $scope.savePhoto = function () {
                         console.log($scope.photo);
-                        $http.put('/api/photos/' + $routeParams.id, $scope.photo)
+                        $http.put('/api/photos/' + $stateParams.id, $scope.photo)
                             .success(function (data) {
-                                alert('Saved');
+                                $scope.alerts.push({ type: 'success', msg: 'Photo updated with success ;)'});
                             });
                     }
                 });
         }
-
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
     }
 ]);

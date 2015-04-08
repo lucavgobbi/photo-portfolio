@@ -3,8 +3,9 @@
 
 div(class='container')
     div(class='row')
+        alert(ng-repeat='alert in alerts', type='{{alert.type}}', close='closeAlert($index)') {{alert.msg}}
         p(class='navbar-text')
-            a(class='btn btn-sm btn-success', ng-click='savePhoto()') Save new photo
+            a(class='btn btn-sm btn-success', ng-click='savePhoto()') Save photo
     div(class='row')
         div(class='col-md-6')
             div(class='form-group')

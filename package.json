@@ -18,8 +18,8 @@
     "angular": "*",
     "bootstrap": "*",
     "jquery": "*",
-    "angular-route": "*",
     "angular-resource": "*",
-    "hover.css": "*"
+    "hover.css": "*",
+    "angular-ui-router": "*"
   }
 }

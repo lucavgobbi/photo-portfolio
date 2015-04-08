@@ -1,28 +1,31 @@
 /**
  * Created by lucavgobbi on 3/21/15.
  */
-var ppApp = angular.module('ppApp', ['ngRoute', 'homeCtrl', 'albumCtrl']);
+var ppApp = angular.module('ppApp', ['ui.router', 'homeCtrl', 'albumCtrl', 'photoCtrl']);
 
-ppApp.config(['$routeProvider',
-    function($routeProvider) {
-        $routeProvider
-            .when('/home', {
+ppApp.config(['$stateProvider', '$urlRouterProvider',
+    function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/');
+
+        $stateProvider
+            .state('home', {
+                url: '/',
                 templateUrl: '/home/index',
                 controller: 'ShowHome'
             })
-            .when('/albums', {
+            .state('albums', {
+                url: '/albums',
                 templateUrl: '/album/index',
                 controller: 'ListAlbums'
             })
-            .when('/photos', {
+            .state('photos', {
+                url: '/photos',
                 templateUrl: '/photo/index',
                 controller: 'ListPhotos'
             })
-            .when('/photos/:id', {
+            .state('photoDetails', {
+                url: '/photos/:id',
                 templateUrl: '/photo/view',
                 controller: 'ViewPhoto'
-            })
-            .otherwise({
-                redirectTo: '/home'
-            })
+            });
     }]);

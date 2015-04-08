@@ -16,4 +16,4 @@ div(class='container')
                     td {{ photo.title }}
                     td {{ photo.shortDescription }}
                     td
-                        a(class='btn btn-sm btn-default', href='#/photos/{{ photo.id }}') Edit
+                        a(class='btn btn-sm btn-default', ui-sref='photoDetails({id: photo.id})') Edit
