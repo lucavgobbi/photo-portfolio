@@ -20,7 +20,23 @@ photoCtrl.controller('ListPhotos', ['$scope','$http',
 
 photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http',
     function ($scope, $stateParams, $http) {
+        //Default functions and scope
         $scope.alerts = [];
+
+        $scope.today = function() {
+            $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
+        };
+
+        $scope.format = 'MM-dd-yyyy';
+
         //New
         if ($stateParams.id == 'new') {
             $scope.photo = {};

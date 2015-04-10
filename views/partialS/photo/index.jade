@@ -4,7 +4,8 @@
 div(class='container')
     div(class='row')
         p(class='navbar-text')
-            a(class='btn btn-sm btn-success', href='#/photos/new') Add new photo
+            a(class='btn btn-success', href='#/photos/new')
+                i(class='fa fa-plus')  Add new photo
     div(class='row')
         table(class='table')
             thead
@@ -16,4 +17,5 @@ div(class='container')
                     td {{ photo.title }}
                     td {{ photo.shortDescription }}
                     td
-                        a(class='btn btn-sm btn-default', ui-sref='photoDetails({id: photo.id})') Edit
+                        a(class='btn btn-sm btn-default', ui-sref='photoDetails({id: photo.id})')
+                            i(class='fa fa-edit')  Edit
