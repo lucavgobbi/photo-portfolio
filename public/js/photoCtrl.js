@@ -21,12 +21,16 @@ photoCtrl.controller('ListPhotos', ['$scope','$http',
 photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http', '$modal',
     function ($scope, $stateParams, $http, $modal) {
         //Default functions and scope
+
+        //Alerts
         $scope.alerts = [];
 
-        $scope.today = function() {
-            $scope.dt = new Date();
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
         };
-        $scope.today();
+
+        //DatePicker
+        $scope.format = 'MM-dd-yyyy';
 
         //DatePicker open
         $scope.openDatePicker = function ($event) {
@@ -58,7 +62,9 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http', '$modal',
             }
         };
 
-        $scope.format = 'MM-dd-yyyy';
+        $scope.removePhotoFromAlbum = function (album) {
+            $scope.photo.albums.splice($scope.photo.albums.indexOf(album), 1);
+        };
 
         //New
         if ($stateParams.id == 'new') {
@@ -70,7 +76,6 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http', '$modal',
                 $http.post('/api/photos', $scope.photo)
                     .success(function (data) {
                         $scope.alerts.push({ type: 'success', msg: 'Photo added with success ;)'});
-                        alert('Saved');
                     });
             }
         }
@@ -91,8 +96,6 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http', '$modal',
                     }
                 });
         }
-        $scope.closeAlert = function(index) {
-            $scope.alerts.splice(index, 1);
-        };
+
     }
 ]);

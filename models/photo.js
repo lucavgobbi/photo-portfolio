@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var photoSchema = new Schema({
-    name: { type: String, required: true },
     description: String,
     shortDescription: String,
     title: { type: String, required: true },
