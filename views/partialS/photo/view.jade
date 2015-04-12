@@ -27,20 +27,39 @@ div(class='container')
                 p(class='input-group')
                     input(ng-model='photo.dateTaken', class='form-control', datepicker-popup='{{format}}', is-open='opened', show-button-bar='false', ng-required='true')
                     span(class='input-group-btn')
-                        button(class='btn btn-default', type='button', ng-click='open($event)')
+                        button(class='btn btn-default', type='button', ng-click='openDatePicker($event)')
                             i(class='fa fa-calendar')
             div(class='panel panel-default')
                 div(class='panel-heading')
                     h3(class='panel-title') Albums
                         div(class='pull-right')
-                            a(class='btn btn-sm btn-default')
+                            a(class='btn btn-sm btn-default', ng-click='openAlbumDialog()')
                                 i(class='fa fa-edit')  Edit
                         div(class='clearfix')
                 div(class='panel-body')
-                        p(ng-repeat='album in photo.albums') {{ album }}
+                    table(class='table')
+                        thead
+                            tr
+                                th
+                                th
+                        tbody
+                            tr(ng-repeat='album in photo.albums')
+                                td {{ album }}
+                                td Remove
 
         div(class='col-md-6')
             div(class='form-group')
                 label Photo URL
                 input(ng-model='photo.url', class='form-control', placeholder='Photo URL')
                 img(ng-src='{{photo.url}}', class='full-width')
+
+    // Album Dialog Modal
+    div(class='modal fade', id='albumDialog', role='dialog')
+        div(class='modal-dialog')
+            div(class='modal-content')
+                div(class='modal-header')
+                    h3(class='modal-title') Add photo to album
+                div(class='modal-body')
+                    input(class='form-control', type='text', ng-model='albumToAdd', typeahead='album as album._id for album in albums | filter:{_id: $viewValue} | limitTo:8')
+                div(class='modal-footer')
+                    button(class='btn btn-sm btn-success', ng-click='addPhotoToAlbum()') Add to {{ albumToAdd._id }}

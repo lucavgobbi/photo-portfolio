@@ -18,8 +18,8 @@ photoCtrl.controller('ListPhotos', ['$scope','$http',
     }
 ]);
 
-photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http',
-    function ($scope, $stateParams, $http) {
+photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http', '$modal',
+    function ($scope, $stateParams, $http, $modal) {
         //Default functions and scope
         $scope.alerts = [];
 
@@ -28,11 +28,34 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http',
         };
         $scope.today();
 
-        $scope.open = function($event) {
+        //DatePicker open
+        $scope.openDatePicker = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();
 
             $scope.opened = true;
+        };
+
+        //Album Dialog open
+        $scope.openAlbumDialog = function () {
+            $('#albumDialog').modal();
+            $scope.albumToAdd = undefined;
+            $http.get('/api/albums')
+                .success(function (data) {
+                    $scope.albums = data;
+                });
+        };
+
+        $scope.addPhotoToAlbum = function () {
+            if ($scope.photo.albums == undefined) {
+                $scope.photo.albums = [];
+            }
+
+            if ($scope.albumToAdd._id != undefined
+                && $.inArray($scope.albumToAdd._id, $scope.photo.albums) == -1) {
+                $scope.photo.albums.push($scope.albumToAdd._id);
+                $('#albumDialog').modal('hide');
+            }
         };
 
         $scope.format = 'MM-dd-yyyy';
