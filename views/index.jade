@@ -12,8 +12,14 @@ block content
                             li
                                 a(ui-sref='portfolio') Portfolio
                             li
-                                a(ui-sref='albums') Albums
-                            li
-                                a(ui-sref='photos') Photos
+                                a(ui-sref='albumsThumbs') Albums
+                            li(class='dropdown')
+                                a(class='dropdown-toggle', data-toggle='dropdown', role='button') Admin
+                                    span(class='carret')
+                                ul(class='dropdown-menu', role='menu')
+                                    li
+                                        a(ui-sref='photos') Manage Photos
+                                    li
+                                        a(ui-sref='albums') Manage Albums
         div(class='center-container', ui-view)
 

@@ -11,10 +11,10 @@ form(name='form', novalidate=)
             alert(ng-repeat='alert in alerts', type='{{alert.type}}', close='closeAlert($index)') {{alert.msg}}
         div(class='row')
             div(class='col-md-6')
-                div(class='form-group')
+                div(class='form-group', ng-class='{ "has-error": form.title.$error.required }')
                     label Title
-                    input(ng-model='photo.title', name='title', class='form-control', placeholder='Title', required=)
-                    div(ng-show='form.photo.title.$error.required') Title is required
+                    input(ng-model='photo.title', name='title', class='form-control', placeholder='Title', required)
+                    div(ng-show='form.title.$error.required') Title is required
                 div(class='form-group')
                     label Short Description
                     input(ng-model='photo.shortDescription', class='form-control', placeholder='Short Description')
@@ -49,9 +49,10 @@ form(name='form', novalidate=)
                                             i(class='fa fa-remove')  Remove
 
             div(class='col-md-6')
-                div(class='form-group')
+                div(class='form-group', ng-class='{ "has-error": form.url.$error.required }')
                     label Photo URL
-                    input(ng-model='photo.url', class='form-control', placeholder='Photo URL')
+                    input(ng-model='photo.url', name='url', class='form-control', placeholder='Photo URL', required)
+                    div(ng-show='form.url.$error.required') URL is required
                     img(ng-src='{{photo.url}}', class='full-width')
 
         // Album Dialog Modal

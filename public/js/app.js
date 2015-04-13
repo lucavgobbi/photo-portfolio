@@ -13,6 +13,11 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: '/home/index',
                 controller: 'ShowHome'
             })
+            .state('albumsThumbs', {
+                url: '/albumsThumbs',
+                templateUrl: '/album/indexThumbs',
+                controller: 'ListAlbumsThumbs'
+            })
             .state('albums', {
                 url: '/albums',
                 templateUrl: '/album/index',

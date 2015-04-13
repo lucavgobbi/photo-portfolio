@@ -1,14 +1,19 @@
 //
-   Created by lucavgobbi on 3/21/15.
+   Created by lucavgobbi on 4/12/15.
 
-div(class='center-container')
-    div(ng-repeat='album in albums')
-        div(class=['col-md-6', 'big-thumbs','text-center', 'hvr-rectangle-out'],
-            style={
-                'background': 'url({{ album.cover }})',
-                'background-repeat': 'no-repeat',
-                'background-size': '100%'
-            })
-            h2 {{album.title}}
-            p {{album.description}}
-
+div(class='container')
+   div(class='row')
+      p(class='navbar-text')
+         a(class='btn btn-success', href='#/albums/new')
+            i(class='fa fa-plus')  Create album
+   div(class='row')
+      table(class='table')
+         thead
+            th Title
+            th Actions
+         tbody(class='table-striped')
+            tr(ng-repeat='album in albums')
+               td {{ album.title }}
+               td
+                  a(class='btn btn-sm btn-default', ui-sref='albumDetails({id: album.name})')
+                     i(class='fa fa-edit')  Edit
