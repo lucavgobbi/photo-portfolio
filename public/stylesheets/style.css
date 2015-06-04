@@ -40,6 +40,10 @@ padding-left: 15px;
     margin:0;
 }
 
+.small-thumbs {
+    height: 100px;
+}
+
 .big-thumbs {
     height:300px;
 }
@@ -54,19 +58,3 @@ padding-left: 15px;
     width: 100%;
 }
 
-
-/*
-.center-row {
-    height:50%;
-    width:100%;
-    display: table-row;
-}
-
-.center-row > div {
-    height:100%;
-    width:50%;
-    display: table-cell;
-    border:0 solid #eee;
-    color:#fff;
-    vertical-align:middle;
-}&/

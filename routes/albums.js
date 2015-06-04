@@ -28,6 +28,16 @@ router.get('/', function (req, res) {
         });
 });
 
+router.get('/:id/photos', function (req, res) {
+    Photo.find({albums: req.params.id }, function (err, data) {
+        if (err) {
+            res.status(500).json({error: true, type: 'internal_error', details: err});
+        } else {
+            res.status(200).json(data);
+        }
+    });
+});
+
 router.put('/:id', function (req, res) {
     Album.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
         if (err) {

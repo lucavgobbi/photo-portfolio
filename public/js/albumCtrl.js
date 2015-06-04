@@ -83,6 +83,11 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$stateParams', '$http',
                             });
                     }
                 });
+
+            $http.get('/api/albums/' + $stateParams.id + '/photos')
+                .success(function (data) {
+                    $scope.photos = data;
+                });
         }
     }
 ]);
