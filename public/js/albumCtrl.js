@@ -2,7 +2,7 @@
  * Created by lucavgobbi on 3/21/15.
  */
 
-var albumCtrl = angular.module('albumCtrl', []);
+var albumCtrl = angular.module('albumCtrl', ['ui-notification']);
 
 albumCtrl.controller('ListAlbumsThumbs', ['$scope','$http',
     function ($scope, $http) {
@@ -34,17 +34,8 @@ albumCtrl.controller('ListAlbums', ['$scope','$http',
     }
 ]);
 
-albumCtrl.controller('ViewAlbum', ['$scope', '$stateParams', '$http',
-    function ($scope, $stateParams, $http) {
-        //Default functions and scope
-
-        //Alerts
-        $scope.alerts = [];
-
-        $scope.closeAlert = function(index) {
-            $scope.alerts.splice(index, 1);
-        };
-
+albumCtrl.controller('ViewAlbum', ['$scope', '$state', '$stateParams', '$http', 'Notification',
+    function ($scope, $state, $stateParams, $http, Notification) {
         //DatePicker
         $scope.format = 'MM-dd-yyyy';
 
@@ -64,7 +55,8 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$stateParams', '$http',
             $scope.saveAlbum = function () {
                 $http.post('/api/albums', $scope.album)
                 .success(function (data) {
-                    $scope.alerts.push({ type: 'success', msg: 'Album created with success ;)'});
+                        Notification.success('Album created :)');
+                        $state.go('albums');
                 });
             }
         }
@@ -79,7 +71,8 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$stateParams', '$http',
                     $scope.saveAlbum = function () {
                         $http.put('/api/albums/' + $stateParams.id, $scope.album)
                             .success(function (data) {
-                                $scope.alerts.push({ type: 'success', msg: 'Album updated with success ;)'});
+                                Notification.success('Album saved ;)');
+                                $state.go('albums');
                             });
                     }
                 });

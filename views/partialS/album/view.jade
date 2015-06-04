@@ -8,8 +8,6 @@ form(name='form', novalidate=)
                 a(class='btn btn-success', ng-click='saveAlbum()')
                     i(class='fa fa-save')  Save Album
         div(class='row')
-            alert(ng-repeat='alert in alerts', type='{{alert.type}}', close='closeAlert($index)') {{alert.msg}}
-        div(class='row')
             div(class='col-md-6')
                 div(class='form-group', ng-class='{ "has-error": form._id.$error.required }')
                     label Unique album Id

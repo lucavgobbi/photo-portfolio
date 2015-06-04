@@ -1,7 +1,7 @@
 /**
  * Created by lucavgobbi on 4/4/15.
  */
-var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap']);
+var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap', 'ui-notification']);
 
 photoCtrl.controller('ListPhotos', ['$scope','$http',
     function ($scope, $http) {
@@ -18,17 +18,8 @@ photoCtrl.controller('ListPhotos', ['$scope','$http',
     }
 ]);
 
-photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http', '$modal',
-    function ($scope, $stateParams, $http, $modal) {
-        //Default functions and scope
-
-        //Alerts
-        $scope.alerts = [];
-
-        $scope.closeAlert = function(index) {
-            $scope.alerts.splice(index, 1);
-        };
-
+photoCtrl.controller('ViewPhoto', ['$scope', '$rootScope', '$state', '$stateParams', '$http', 'Notification',
+    function ($scope, $rootScope, $state, $stateParams, $http, Notification) {
         //DatePicker
         $scope.format = 'MM-dd-yyyy';
 
@@ -74,7 +65,8 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http', '$modal',
             $scope.savePhoto = function () {
                 $http.post('/api/photos', $scope.photo)
                     .success(function (data) {
-                        $scope.alerts.push({ type: 'success', msg: 'Photo added with success ;)'});
+                        Notification.success('Photo added ;)');
+                        $state.go('photos');
                     });
             }
         }
@@ -89,7 +81,8 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http', '$modal',
                     $scope.savePhoto = function () {
                         $http.put('/api/photos/' + $stateParams.id, $scope.photo)
                             .success(function (data) {
-                                $scope.alerts.push({ type: 'success', msg: 'Photo updated with success ;)'});
+                                Notification.success('Photo updated :)');
+                                $state.go('photos');
                             });
                     }
                 });
