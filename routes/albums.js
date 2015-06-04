@@ -28,6 +28,18 @@ router.get('/', function (req, res) {
         });
 });
 
+router.put('/:id', function (req, res) {
+    Album.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
+        if (err) {
+            res.status(500).json({error: true, type: 'internal_error', details: err});
+        } else {
+            Photo.findById(req.params.id, function (err, data) {
+                res.status(200).json(data);
+            });
+        }
+    })
+});
+
 router.post('/', function (req, res) {
     var newAlbum = new Album(req.body);
     newAlbum.save(function (err, savedData) {

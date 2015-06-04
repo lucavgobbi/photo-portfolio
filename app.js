@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to mongodb
-mongoose.connect('mongodb://ppUser:ppUser@lucavgobbi.com:27017/photo-portfolio');
+mongoose.connect('mongodb://user:password@127.0.0.1:27017/photo-portfolio');
 
 // All the routes are described here
 

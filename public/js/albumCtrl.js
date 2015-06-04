@@ -34,3 +34,56 @@ albumCtrl.controller('ListAlbums', ['$scope','$http',
     }
 ]);
 
+albumCtrl.controller('ViewAlbum', ['$scope', '$stateParams', '$http',
+    function ($scope, $stateParams, $http) {
+        //Default functions and scope
+
+        //Alerts
+        $scope.alerts = [];
+
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
+
+        //DatePicker
+        $scope.format = 'MM-dd-yyyy';
+
+        //DatePicker open
+        $scope.openDatePicker = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
+        };
+
+        //New
+        if ($stateParams.id == 'new') {
+            $scope.album = {};
+
+            //Save Function
+            $scope.saveAlbum = function () {
+                $http.post('/api/albums', $scope.album)
+                .success(function (data) {
+                    $scope.alerts.push({ type: 'success', msg: 'Album created with success ;)'});
+                });
+            }
+        }
+        //Edit
+        else {
+            //Get album
+            $http.get('/api/albums/' + $stateParams.id)
+                .success(function (data) {
+                    $scope.album = data;
+
+                    //Save function
+                    $scope.saveAlbum = function () {
+                        $http.put('/api/albums/' + $stateParams.id, $scope.album)
+                            .success(function (data) {
+                                $scope.alerts.push({ type: 'success', msg: 'Album updated with success ;)'});
+                            });
+                    }
+                });
+        }
+    }
+]);
+

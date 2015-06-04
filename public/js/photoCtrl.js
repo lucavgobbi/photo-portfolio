@@ -72,7 +72,6 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http', '$modal',
 
             //Save Function
             $scope.savePhoto = function () {
-                console.log($scope.photo);
                 $http.post('/api/photos', $scope.photo)
                     .success(function (data) {
                         $scope.alerts.push({ type: 'success', msg: 'Photo added with success ;)'});
@@ -88,7 +87,6 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$stateParams', '$http', '$modal',
 
                     //Save function
                     $scope.savePhoto = function () {
-                        console.log($scope.photo);
                         $http.put('/api/photos/' + $stateParams.id, $scope.photo)
                             .success(function (data) {
                                 $scope.alerts.push({ type: 'success', msg: 'Photo updated with success ;)'});

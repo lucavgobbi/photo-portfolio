@@ -23,13 +23,18 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: '/album/index',
                 controller: 'ListAlbums'
             })
+            .state('albumDetails', {
+                url: '/album/:id',
+                templateUrl: '/album/view',
+                controller: 'ViewAlbum'
+            })
             .state('photos', {
                 url: '/photos',
                 templateUrl: '/photo/index',
                 controller: 'ListPhotos'
             })
             .state('photoDetails', {
-                url: '/photos/:id',
+                url: '/photo/:id',
                 templateUrl: '/photo/view',
                 controller: 'ViewPhoto'
             });

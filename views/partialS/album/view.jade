@@ -1,3 +1,35 @@
 //
    Created by lucavgobbi on 4/12/15.
 
+form(name='form', novalidate=)
+    div(class='container')
+        div(class='row')
+            p(class='navbar-text')
+                a(class='btn btn-success', ng-click='saveAlbum()')
+                    i(class='fa fa-save')  Save Album
+        div(class='row')
+            alert(ng-repeat='alert in alerts', type='{{alert.type}}', close='closeAlert($index)') {{alert.msg}}
+        div(class='row')
+            div(class='col-md-6')
+                div(class='form-group', ng-class='{ "has-error": form._id.$error.required }')
+                    label Unique album Id
+                    input(ng-model='album._id', name='_id', class='form-control', placeholder='Unique album Id', required)
+                    div(ng-show='form._id.$error.required') Unique album Id is required
+                div(class='form-group', ng-class='{ "has-error": form.title.$error.required }')
+                    label Title
+                    input(ng-model='album.title', name='title', class='form-control', placeholder='Title', required)
+                    div(ng-show='form.title.$error.required') Title is required
+                div(class='form-group')
+                    label Short Description
+                    input(ng-model='album.shortDescription', class='form-control', placeholder='Short Description')
+            div(class='col-md-6')
+                div(class='form-group')
+                    label Description
+                    textarea(ng-model='album.description', class='form-control', rows=7, placeholder='Description')
+                div(class='form-group')
+                    label Date Created
+                    p(class='input-group')
+                        input(ng-model='album.dateCreated', class='form-control', datepicker-popup='{{format}}', is-open='opened', show-button-bar='false', ng-required='true')
+                        span(class='input-group-btn')
+                            button(class='btn btn-default', type='button', ng-click='openDatePicker($event)')
+                                i(class='fa fa-calendar')
