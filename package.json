@@ -20,6 +20,7 @@
     "jquery": "*",
     "angular-resource": "*",
     "hover.css": "*",
-    "angular-ui-router": "*"
+    "angular-ui-router": "*",
+    "underscore": "*"
   }
 }

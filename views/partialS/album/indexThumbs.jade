@@ -3,11 +3,7 @@
 
 div(class='center-container')
     div(ng-repeat='album in albums')
-        div(class=['col-md-4 col-sm-6 col-xs-12', 'big-thumbs','text-center', 'hvr-rectangle-out'],
-            style={
-                'background': 'url({{ album.cover }})',
-                'background-repeat': 'no-repeat',
-                'background-size': '100%'
+        div(class='col-md-4 col-sm-6 col-xs-12')
+            div(class='album-cover', style={
+                'background': 'url({{ album.cover }})'
             })
-            h2 {{album.title}}
-            p {{album.description}}

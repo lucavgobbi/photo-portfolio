@@ -41,7 +41,7 @@ form(name='form', novalidate=)
                                     th
                             tbody
                                 tr(ng-repeat='album in photo.albums')
-                                    td {{ album }}
+                                    td {{ album.title }}
                                     td
                                         a(class='pull-right btn btn-sm btn-danger', ng-click='removePhotoFromAlbum(album)')
                                             i(class='fa fa-remove')  Remove
@@ -54,12 +54,14 @@ form(name='form', novalidate=)
                     img(ng-src='{{photo.url}}', class='full-width')
 
         // Album Dialog Modal
+
         div(class='modal fade', id='albumDialog', role='dialog')
             div(class='modal-dialog')
                 div(class='modal-content')
                     div(class='modal-header')
                         h3(class='modal-title') Add photo to album
                     div(class='modal-body')
-                        input(class='form-control', type='text', ng-model='albumToAdd', typeahead='album as album._id for album in albums | filter:{_id: $viewValue} | limitTo:8')
+                        input(class='form-control', type='text', ng-model='albumToAdd', typeahead='album as album.title for album in albums | filter:{ title: $viewValue} | limitTo:8')
                     div(class='modal-footer')
-                        button(class='btn btn-sm btn-success', ng-click='addPhotoToAlbum()') Add to {{ albumToAdd._id }}
+                        button(class='btn btn-sm btn-success', ng-click='addPhotoToAlbum()') Add to {{ albumToAdd.title }}
+

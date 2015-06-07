@@ -7,7 +7,9 @@ var Photo = require('../models/photo').Photo;
 
 
 router.get('/:id', function (req, res) {
-    Photo.findById(req.params.id, function (err, data) {
+    Photo.findById(req.params.id)
+        .populate('albums')
+        .exec(function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
         } else if (!data) {

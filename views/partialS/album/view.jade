@@ -7,6 +7,9 @@ form(name='form', novalidate=)
             p(class='navbar-text')
                 a(class='btn btn-success', ng-click='saveAlbum()')
                     i(class='fa fa-save')  Save Album
+                span(class='space-5')
+                a(class='btn btn-success', ng-click='selectPhoto()')
+                    i(class='fa fa-image')  Change Cover
         div(class='row')
             div(class='col-md-6')
                 div(class='form-group', ng-class='{ "has-error": form._id.$error.required }')
@@ -21,6 +24,9 @@ form(name='form', novalidate=)
                     label Short Description
                     input(ng-model='album.shortDescription', class='form-control', placeholder='Short Description')
             div(class='col-md-6')
+                div(class='form-group')
+                    label Cover
+                    input(class='form-control', type='text', ng-model='albumToAdd', typeahead='album as album._id for album in photos | filter:{_id: $viewValue} | limitTo:8')
                 div(class='form-group')
                     label Description
                     textarea(ng-model='album.description', class='form-control', rows=7, placeholder='Description')
@@ -57,3 +63,20 @@ form(name='form', novalidate=)
                                 button(type='button', class='btn btn-primary next')
                                     i(class='glyphicon glyphicon-chevron-right') Next
 
+    // Photo Dialog Modal
+    script(type='text/ng-template', id='customTemplate.html')
+        a
+            img(ng-src='{{match.model.url}}', class='xsmall-thumbs')
+            span(class='space-15')
+            span(bind-html-unsafe='match.label | typeaheadHighlight:query')
+    div(class='modal fade', id='photoDialog', role='dialog')
+        div(class='modal-dialog')
+            div(class='modal-content')
+                div(class='modal-header')
+                    h3(class='modal-title') Select Photo
+                div(class='modal-body')
+                    input(class='form-control', type='text', ng-model='album.cover', typeahead='photo as photo.title for photo in photosToSelect | filter: { title: $viewValue } | limitTo:8', typeahead-template-url="customTemplate.html")
+                    br
+                    img(ng-src='{{ album.cover.url }}', class='big-thumbs' title='{{ album.cover.title }}')
+                div(class='modal-footer')
+                    button(class='btn btn-sm btn-success', data-dismiss='modal') Select

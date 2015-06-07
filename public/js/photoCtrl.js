@@ -5,13 +5,20 @@ var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap', 'ui-notification'])
 
 photoCtrl.controller('ListPhotos', ['$scope','$http',
     function ($scope, $http) {
+        $scope.addPhotosToAlbum = function () {
+            var selectedPhotos = $('.add-to-album:checked');
+            console.log(selectedPhotos);
+        };
+
         $http.get('/api/photos')
             .success(function (data) {
                 $scope.photos = data.map(function (item) {
                     return {
                         id: item._id,
                         title: item.title,
-                        shortDescription: item.shortDescription
+                        shortDescription: item.shortDescription,
+                        description: item.description,
+                        url: item.url
                     }
                 });
             })
@@ -46,9 +53,8 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$rootScope', '$state', '$statePara
                 $scope.photo.albums = [];
             }
 
-            if ($scope.albumToAdd._id != undefined
-                && $.inArray($scope.albumToAdd._id, $scope.photo.albums) == -1) {
-                $scope.photo.albums.push($scope.albumToAdd._id);
+            if ($scope.albumToAdd._id != undefined) {
+                $scope.photo.albums.push($scope.albumToAdd);
                 $('#albumDialog').modal('hide');
             }
         };

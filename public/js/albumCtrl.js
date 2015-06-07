@@ -2,7 +2,7 @@
  * Created by lucavgobbi on 3/21/15.
  */
 
-var albumCtrl = angular.module('albumCtrl', ['ui-notification']);
+var albumCtrl = angular.module('albumCtrl', ['ui.bootstrap', 'ui-notification']);
 
 albumCtrl.controller('ListAlbumsThumbs', ['$scope','$http',
     function ($scope, $http) {
@@ -47,6 +47,16 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$state', '$stateParams', '$http', 
             $scope.opened = true;
         };
 
+        $scope.photosToSelect = [];
+
+        $scope.selectPhoto = function () {
+            $http.get('/api/albums/' + $stateParams.id + '/photos')
+                .success(function (data) {
+                    $scope.photosToSelect = data;
+                    $('#photoDialog').modal();
+                });
+        };
+
         //New
         if ($stateParams.id == 'new') {
             $scope.album = {};
@@ -69,6 +79,7 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$state', '$stateParams', '$http', 
 
                     //Save function
                     $scope.saveAlbum = function () {
+                        //$scope.album.cover = $scope.album.cover.id;
                         $http.put('/api/albums/' + $stateParams.id, $scope.album)
                             .success(function (data) {
                                 Notification.success('Album saved ;)');
