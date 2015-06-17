@@ -10,7 +10,13 @@ var albumSchema = new Schema({
     shortDescription: String,
     title: { type: String, required: true },
     dateCreated: Date,
-    cover: { type: Schema.Types.ObjectId, ref: 'Photo'}
+    cover: { type: Schema.Types.ObjectId, ref: 'Photo'},
+    coverDetails: {
+        x: Number,
+        y: Number,
+        height: Number,
+        width: Number
+    }
 });
 
 var album = mongoose.model('Album', albumSchema);

@@ -21,6 +21,7 @@
     "angular-resource": "*",
     "hover.css": "*",
     "angular-ui-router": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "cropper": "*"
   }
 }

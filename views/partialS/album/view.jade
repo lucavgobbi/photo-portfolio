@@ -8,7 +8,7 @@ form(name='form', novalidate=)
                 a(class='btn btn-success', ng-click='saveAlbum()')
                     i(class='fa fa-save')  Save Album
                 span(class='space-5')
-                a(class='btn btn-success', ng-click='selectPhoto()')
+                a(class='btn btn-success', ng-click='selectPhotoDialog()')
                     i(class='fa fa-image')  Change Cover
         div(class='row')
             div(class='col-md-6')
@@ -75,8 +75,9 @@ form(name='form', novalidate=)
                 div(class='modal-header')
                     h3(class='modal-title') Select Photo
                 div(class='modal-body')
-                    input(class='form-control', type='text', ng-model='album.cover', typeahead='photo as photo.title for photo in photosToSelect | filter: { title: $viewValue } | limitTo:8', typeahead-template-url="customTemplate.html")
+                    input(class='form-control', type='text', ng-model='album.cover', typeahead-on-select='reloadCropper()', typeahead='photo as photo.title for photo in photosToSelect | filter: { title: $viewValue } | limitTo:8', typeahead-template-url="customTemplate.html")
                     br
-                    img(ng-src='{{ album.cover.url }}', class='big-thumbs' title='{{ album.cover.title }}')
+                    div
+                        img(id='cropper-img', ng-if="album.cover", class='big-thumbs', ng-src='{{ album.cover.url }}', title='{{ album.cover.title }}')
                 div(class='modal-footer')
-                    button(class='btn btn-sm btn-success', data-dismiss='modal') Select
+                    button(class='btn btn-sm btn-success', ng-click='selectPhoto()', data-dismiss='modal') Select
