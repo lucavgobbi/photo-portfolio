@@ -4,6 +4,10 @@
 div(class='center-container')
     div(ng-repeat='album in albums')
         div(class='col-md-4 col-sm-6 col-xs-12')
-            div(class='album-cover', style={
-                'background': 'url({{ album.cover }})'
-            })
+            img(lvg-caman,
+                lvg-caman-crop-x='{{ album.coverDetails.x }}',
+                lvg-caman-crop-y='{{ album.coverDetails.y }}',
+                lvg-caman-crop-width='{{ album.coverDetails.width }}',
+                lvg-caman-crop-height='{{ album.coverDetails.height }}',
+                id='{{ album.name }}',
+                ng-src='{{ album.cover }}')

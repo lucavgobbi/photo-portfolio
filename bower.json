@@ -16,6 +16,7 @@
   "dependencies": {
     "angular-ui-utils": "~0.2.3",
     "angular-bootstrap": "~0.12.1",
-    "angular-ui-notification": "~0.0.5"
+    "angular-ui-notification": "~0.0.5",
+    "caman": "*"
   }
 }
