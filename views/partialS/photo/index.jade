@@ -7,7 +7,7 @@ div(class='container')
             a(class='btn btn-success', href='#/photo/new')
                 i(class='fa fa-plus')  Add new photo
             span(class='space-5')
-            a(class='btn btn-default', ng-click='addPhotosToAlbum()')
+            a(class='btn btn-default', ng-click='openAlbumDialog()')
                 i(class='fa fa-folder-o')  Add photos to album
     div(class='row')
         table(class='table')
@@ -21,12 +21,22 @@ div(class='container')
             tbody(class='table-striped')
                 tr(ng-repeat='photo in photos')
                     td
-                        input(type='checkbox', class='add-to-album')
+                        input(type='checkbox', class='add-to-album', data-id='{{ photo._id }}')
                     td
                         img(ng-src='{{ photo.url }}', class='xsmall-thumbs' title='{{ photo.title }}')
                     td {{ photo.title }}
                     td {{ photo.shortDescription }}
                     td {{ photo.description }}
                     td
-                        a(class='btn btn-sm btn-default', ui-sref='photoDetails({id: photo.id})')
+                        a(class='btn btn-sm btn-default', ui-sref='photoDetails({id: photo._id})')
                             i(class='fa fa-edit')  Edit
+
+    div(class='modal fade', id='albumDialog', role='dialog')
+        div(class='modal-dialog')
+            div(class='modal-content')
+                div(class='modal-header')
+                    h3(class='modal-title') Add photo to album
+                div(class='modal-body')
+                    input(class='form-control', type='text', ng-model='albumToAdd', typeahead='album as album.title for album in albums | filter:{ title: $viewValue} | limitTo:8')
+                div(class='modal-footer')
+                    button(class='btn btn-sm btn-success', ng-click='addPhotosToAlbum()') Add to {{ albumToAdd.title }}

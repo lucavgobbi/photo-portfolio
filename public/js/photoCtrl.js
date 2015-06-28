@@ -3,18 +3,34 @@
  */
 var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap', 'ui-notification']);
 
-photoCtrl.controller('ListPhotos', ['$scope','$http',
-    function ($scope, $http) {
+photoCtrl.controller('ListPhotos', ['$scope','$http', 'Notification',
+    function ($scope, $http, Notification) {
+        $scope.openAlbumDialog = function () {
+            $('#albumDialog').modal();
+            $scope.albumToAdd = undefined;
+            $http.get('/api/albums')
+                .success(function (data) {
+                    $scope.albums = data;
+                });
+        };
+
         $scope.addPhotosToAlbum = function () {
             var selectedPhotos = $('.add-to-album:checked');
-            console.log(selectedPhotos);
+            var selectedAlbum = $scope.albumToAdd;
+            _.each(selectedPhotos, function (inputHtml) {
+                var photoId = $(inputHtml).data('id');
+                $http.post('/api/photos/' + photoId + '/addToAlbum/' + selectedAlbum._id)
+                    .success(function (photo) {
+                        Notification.success(photo.title + ' added to album ' + selectedAlbum.title);
+                    });
+            });
         };
 
         $http.get('/api/photos')
             .success(function (data) {
                 $scope.photos = data.map(function (item) {
                     return {
-                        id: item._id,
+                        _id: item._id,
                         title: item.title,
                         shortDescription: item.shortDescription,
                         description: item.description,

@@ -64,7 +64,7 @@ form(name='form', novalidate=)
                                     i(class='glyphicon glyphicon-chevron-right') Next
 
     // Photo Dialog Modal
-    script(type='text/ng-template', id='customTemplate.html')
+    script(type='text/ng-template', id='photoThumbsTemplate.html')
         a
             img(ng-src='{{match.model.url}}', class='xsmall-thumbs')
             span(class='space-15')
@@ -75,7 +75,7 @@ form(name='form', novalidate=)
                 div(class='modal-header')
                     h3(class='modal-title') Select Photo
                 div(class='modal-body')
-                    input(class='form-control', type='text', ng-model='album.cover', typeahead-on-select='reloadCropper()', typeahead='photo as photo.title for photo in photosToSelect | filter: { title: $viewValue } | limitTo:8', typeahead-template-url="customTemplate.html")
+                    input(class='form-control', type='text', ng-model='album.cover', typeahead-on-select='reloadCropper()', typeahead='photo as photo.title for photo in photosToSelect | filter: { title: $viewValue } | limitTo:8', typeahead-template-url="photoThumbsTemplate.html")
                     br
                     div
                         img(id='cropper-img', ng-if="album.cover", class='big-thumbs', ng-src='{{ album.cover.url }}', title='{{ album.cover.title }}')
