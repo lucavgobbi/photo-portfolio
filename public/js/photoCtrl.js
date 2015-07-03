@@ -3,15 +3,21 @@
  */
 var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap', 'ui-notification']);
 
+function openAlbumDialog ($event, $scope, $http) {
+    $($event.currentTarget).button('loading');
+    $scope.albumToAdd = undefined;
+    $http.get('/api/albums')
+        .success(function (data) {
+            $scope.albums = data;
+            $('#albumDialog').modal();
+            $($event.currentTarget).button('reset');
+        });
+}
+
 photoCtrl.controller('ListPhotos', ['$scope','$http', 'Notification',
     function ($scope, $http, Notification) {
-        $scope.openAlbumDialog = function () {
-            $('#albumDialog').modal();
-            $scope.albumToAdd = undefined;
-            $http.get('/api/albums')
-                .success(function (data) {
-                    $scope.albums = data;
-                });
+        $scope.openAlbumDialog = function ($event) {
+            openAlbumDialog($event, $scope, $http);
         };
 
         $scope.addPhotosToAlbum = function () {
@@ -24,6 +30,7 @@ photoCtrl.controller('ListPhotos', ['$scope','$http', 'Notification',
                         Notification.success(photo.title + ' added to album ' + selectedAlbum.title);
                     });
             });
+            $('#albumDialog').modal('hide');
         };
 
         $http.get('/api/photos')
@@ -43,6 +50,8 @@ photoCtrl.controller('ListPhotos', ['$scope','$http', 'Notification',
 
 photoCtrl.controller('ViewPhoto', ['$scope', '$rootScope', '$state', '$stateParams', '$http', 'Notification',
     function ($scope, $rootScope, $state, $stateParams, $http, Notification) {
+        $('[data-toggle="tooltip"]').tooltip();
+
         //DatePicker
         $scope.format = 'MM-dd-yyyy';
 
@@ -55,13 +64,8 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$rootScope', '$state', '$statePara
         };
 
         //Album Dialog open
-        $scope.openAlbumDialog = function () {
-            $('#albumDialog').modal();
-            $scope.albumToAdd = undefined;
-            $http.get('/api/albums')
-                .success(function (data) {
-                    $scope.albums = data;
-                });
+        $scope.openAlbumDialog = function ($event) {
+            openAlbumDialog($event, $scope, $http);
         };
 
         $scope.addPhotoToAlbum = function () {

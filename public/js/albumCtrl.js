@@ -62,6 +62,8 @@ albumCtrl.controller('ListAlbums', ['$scope','$http',
 
 albumCtrl.controller('ViewAlbum', ['$scope', '$timeout', '$state', '$stateParams', '$http', 'Notification',
     function ($scope, $timeout, $state, $stateParams, $http, Notification) {
+        $('[data-toggle="tooltip"]').tooltip();
+
         //DatePicker
         $scope.format = 'MM-dd-yyyy';
 
@@ -89,14 +91,11 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$timeout', '$state', '$stateParams
         };
 
         function showCropper() {
-            $('#cropper-img').cropper('destroy');
             $('#cropper-img').cropper($scope.cropperOpt);
         }
 
         $scope.reloadCropper = function () {
-            //broadcast the event to show cropper
-            //$scope.$broadcast('hide.cropper');
-            $timeout(showCropper);
+            $('#cropper-img').cropper('replace', $scope.album.cover.url);
         };
 
         $scope.selectPhoto = function () {
@@ -104,14 +103,6 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$timeout', '$state', '$stateParams
             $scope.album.coverDetails = cropData;
         };
 
-        $scope.selectPhotoDialog = function () {
-            $http.get('/api/albums/' + $stateParams.id + '/photos')
-                .success(function (data) {
-                    $scope.photosToSelect = data;
-                    $('#photoDialog').modal();
-                    $timeout(showCropper);
-                });
-        };
         //end of cover selection
 
         //New
@@ -119,7 +110,8 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$timeout', '$state', '$stateParams
             $scope.album = {};
 
             //Save Function
-            $scope.saveAlbum = function () {
+            $scope.saveAlbum = function ($event) {
+                $($event.currentTarget).button('loading');
                 $http.post('/api/albums', $scope.album)
                 .success(function (data) {
                         Notification.success('Album created :)');
@@ -136,13 +128,17 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$timeout', '$state', '$stateParams
 
                     if ($scope.album.coverDetails != null) {
                         $scope.cropperOpt['built'] = function () {
-                            $('#cropper-img').cropper('setData', $scope.album.coverDetails);
+                            $('#cropper-img').cropper('setData', data.coverDetails);
                         };
+                        $timeout(showCropper);
                     }
 
                     //Save function
-                    $scope.saveAlbum = function () {
-                        //$scope.album.cover = $scope.album.cover.id;
+                    $scope.saveAlbum = function ($event) {
+                        $($event.currentTarget).button('loading');
+                        if ($scope.album.cover != undefined) {
+                            $scope.album.coverDetails = $('#cropper-img').cropper('getData');
+                        }
                         $http.put('/api/albums/' + $stateParams.id, $scope.album)
                             .success(function (data) {
                                 Notification.success('Album saved ;)');

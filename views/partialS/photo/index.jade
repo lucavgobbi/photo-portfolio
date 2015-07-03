@@ -7,7 +7,7 @@ div(class='container')
             a(class='btn btn-success', href='#/photo/new')
                 i(class='fa fa-plus')  Add new photo
             span(class='space-5')
-            a(class='btn btn-default', ng-click='openAlbumDialog()')
+            a(class='btn btn-default', data-loading-text='Loading Albums...', ng-click='openAlbumDialog($event)')
                 i(class='fa fa-folder-o')  Add photos to album
     div(class='row')
         table(class='table')

@@ -18,6 +18,7 @@ router.get('/:id', function (req, res) {
 
 router.get('/', function (req, res) {
     Album.find()
+        .sort({ title: 'asc' })
         .populate('cover')
         .exec(function (err, data) {
             if (err) {

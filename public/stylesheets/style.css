@@ -48,6 +48,10 @@ padding-left: 15px;
     height: 100px;
 }
 
+.medium-thumbs {
+    height:200px; !important;
+}
+
 .big-thumbs {
     height:300px; !important;
 }
