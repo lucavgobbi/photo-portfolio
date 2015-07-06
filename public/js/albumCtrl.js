@@ -23,13 +23,12 @@ var albumCtrl = angular.module('albumCtrl', ['ui.bootstrap', 'ui-notification'])
                         })
                         .render();
                     });
-                    console.log(attrs);
                 });
             }
         };
     }]);
 
-albumCtrl.controller('ListAlbumsThumbs', ['$scope','$http',
+albumCtrl.controller('ListAlbums', ['$scope','$http',
     function ($scope, $http) {
         $http.get('/api/albums')
             .success(function (data) {
@@ -37,7 +36,7 @@ albumCtrl.controller('ListAlbumsThumbs', ['$scope','$http',
                     return {
                         name: item._id,
                         title: item.title,
-                        description: item.description,
+                        shortDescription: item.shortDescription,
                         cover: item.cover != undefined ? item.cover.url : undefined,
                         coverDetails: item.coverDetails
                     }
@@ -46,7 +45,22 @@ albumCtrl.controller('ListAlbumsThumbs', ['$scope','$http',
     }
 ]);
 
-albumCtrl.controller('ListAlbums', ['$scope','$http',
+albumCtrl.controller('ViewAlbum', ['$scope', '$http', '$stateParams',
+    function ($scope, $http, $stateParams) {
+        $http.get('/api/albums/' + $stateParams.id)
+            .success(function (data) {
+                $scope.album = data;
+                console.log(data);
+            });
+
+        $http.get('/api/albums/' + $stateParams.id + '/photos')
+            .success(function (data) {
+                $scope.photos = data;
+            });
+    }
+]);
+
+albumCtrl.controller('AdminListAlbums', ['$scope','$http',
     function ($scope, $http) {
         $http.get('/api/albums')
             .success(function (data) {
@@ -60,7 +74,7 @@ albumCtrl.controller('ListAlbums', ['$scope','$http',
     }
 ]);
 
-albumCtrl.controller('ViewAlbum', ['$scope', '$timeout', '$state', '$stateParams', '$http', 'Notification',
+albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateParams', '$http', 'Notification',
     function ($scope, $timeout, $state, $stateParams, $http, Notification) {
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -115,7 +129,7 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$timeout', '$state', '$stateParams
                 $http.post('/api/albums', $scope.album)
                 .success(function (data) {
                         Notification.success('Album created :)');
-                        $state.go('albums');
+                        $state.go('adminAlbums');
                 });
             }
         }
@@ -142,7 +156,7 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$timeout', '$state', '$stateParams
                         $http.put('/api/albums/' + $stateParams.id, $scope.album)
                             .success(function (data) {
                                 Notification.success('Album saved ;)');
-                                $state.go('albums');
+                                $state.go('adminAlbums');
                             });
                     }
                 });

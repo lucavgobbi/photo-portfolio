@@ -14,7 +14,7 @@ function openAlbumDialog ($event, $scope, $http) {
         });
 }
 
-photoCtrl.controller('ListPhotos', ['$scope','$http', 'Notification',
+photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
     function ($scope, $http, Notification) {
         $scope.openAlbumDialog = function ($event) {
             openAlbumDialog($event, $scope, $http);
@@ -48,7 +48,7 @@ photoCtrl.controller('ListPhotos', ['$scope','$http', 'Notification',
     }
 ]);
 
-photoCtrl.controller('ViewPhoto', ['$scope', '$rootScope', '$state', '$stateParams', '$http', 'Notification',
+photoCtrl.controller('AdminViewPhoto', ['$scope', '$rootScope', '$state', '$stateParams', '$http', 'Notification',
     function ($scope, $rootScope, $state, $stateParams, $http, Notification) {
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -92,7 +92,7 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$rootScope', '$state', '$statePara
                 $http.post('/api/photos', $scope.photo)
                     .success(function (data) {
                         Notification.success('Photo added ;)');
-                        $state.go('photos');
+                        $state.go('adminPhotos');
                     });
             }
         }
@@ -108,7 +108,7 @@ photoCtrl.controller('ViewPhoto', ['$scope', '$rootScope', '$state', '$statePara
                         $http.put('/api/photos/' + $stateParams.id, $scope.photo)
                             .success(function (data) {
                                 Notification.success('Photo updated :)');
-                                $state.go('photos');
+                                $state.go('adminPhotos');
                             });
                     }
                 });

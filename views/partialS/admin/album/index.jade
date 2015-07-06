@@ -1,0 +1,19 @@
+//
+   Created by lucavgobbi on 4/12/15.
+
+div(class='container')
+   div(class='row')
+      p(class='navbar-text')
+         a(class='btn btn-success', href='#/admin/album/new')
+            i(class='fa fa-plus')  Create album
+   div(class='row')
+      table(class='table')
+         thead
+            th Title
+            th Actions
+         tbody(class='table-striped')
+            tr(ng-repeat='album in albums')
+               td {{ album.title }}
+               td
+                  a(class='btn btn-sm btn-default', ui-sref='adminAlbumDetails({id: album.name})')
+                     i(class='fa fa-edit')  Edit

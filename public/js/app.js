@@ -13,11 +13,6 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: '/home/index',
                 controller: 'ShowHome'
             })
-            .state('albumsThumbs', {
-                url: '/albumsThumbs',
-                templateUrl: '/album/indexThumbs',
-                controller: 'ListAlbumsThumbs'
-            })
             .state('albums', {
                 url: '/albums',
                 templateUrl: '/album/index',
@@ -28,14 +23,24 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: '/album/view',
                 controller: 'ViewAlbum'
             })
-            .state('photos', {
-                url: '/photos',
-                templateUrl: '/photo/index',
-                controller: 'ListPhotos'
+            .state('adminAlbums', {
+                url: '/admin/albums',
+                templateUrl: '/admin/album/index',
+                controller: 'AdminListAlbums'
             })
-            .state('photoDetails', {
-                url: '/photo/:id',
-                templateUrl: '/photo/view',
-                controller: 'ViewPhoto'
+            .state('adminAlbumDetails', {
+                url: '/admin/album/:id',
+                templateUrl: '/admin/album/view',
+                controller: 'AdminViewAlbum'
+            })
+            .state('adminPhotos', {
+                url: '/admin/photos',
+                templateUrl: '/admin/photo/index',
+                controller: 'AdminListPhotos'
+            })
+            .state('adminPhotoDetails', {
+                url: '/admin/photo/:id',
+                templateUrl: '/admin/photo/view',
+                controller: 'AdminViewPhoto'
             });
     }]);

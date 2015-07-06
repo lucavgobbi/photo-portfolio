@@ -1,19 +1,16 @@
 //
-   Created by lucavgobbi on 4/12/15.
+   Created by lucavgobbi on 3/21/15.
 
-div(class='container')
-   div(class='row')
-      p(class='navbar-text')
-         a(class='btn btn-success', href='#/album/new')
-            i(class='fa fa-plus')  Create album
-   div(class='row')
-      table(class='table')
-         thead
-            th Title
-            th Actions
-         tbody(class='table-striped')
-            tr(ng-repeat='album in albums')
-               td {{ album.title }}
-               td
-                  a(class='btn btn-sm btn-default', ui-sref='albumDetails({id: album.name})')
-                     i(class='fa fa-edit')  Edit
+ul(class='photo-grid')
+    li(ng-repeat='album in albums')
+        a(ui-sref='albumDetails({id: album.name})')
+            figure
+                img(lvg-caman,
+                    lvg-caman-crop-x='{{ album.coverDetails.x }}',
+                    lvg-caman-crop-y='{{ album.coverDetails.y }}',
+                    lvg-caman-crop-width='{{ album.coverDetails.width }}',
+                    lvg-caman-crop-height='{{ album.coverDetails.height }}',
+                    id='{{ album.name }}',
+                    ng-src='{{ album.cover }}')
+                figcaption
+                    p {{ album.title }}

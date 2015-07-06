@@ -8,6 +8,12 @@ router.get('/', function(req, res){
     res.render('index');
 });
 
+router.get('/admin/:area/:name', function (req, res) {
+    var area = req.params.area;
+    var name = req.params.name;
+    res.render('partials/admin/' + area + '/' + name);
+});
+
 router.get('/:area/:name', function (req, res) {
     var area = req.params.area;
     var name = req.params.name;
