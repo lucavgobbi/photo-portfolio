@@ -1,6 +1,7 @@
 /**
  * Created by lucavgobbi on 3/21/15.
  */
+var token = '8746dff1fb9d610f4529e809ec67b5f702e3ba2b58ce282205b4a576a2992627a37fc7d3f64b87ac778a805b8264a56e';
 
 var albumCtrl = angular.module('albumCtrl', ['ui.bootstrap', 'ui-notification'])
     .directive('lvgCaman', ['$timeout', function ($timeout) {
@@ -30,7 +31,7 @@ var albumCtrl = angular.module('albumCtrl', ['ui.bootstrap', 'ui-notification'])
 
 albumCtrl.controller('ListAlbums', ['$scope','$http',
     function ($scope, $http) {
-        $http.get('/api/albums')
+        $http.get('/api/albums?token=' + token)
             .success(function (data) {
                 $scope.albums = data.map(function (item) {
                     return {
@@ -47,13 +48,13 @@ albumCtrl.controller('ListAlbums', ['$scope','$http',
 
 albumCtrl.controller('ViewAlbum', ['$scope', '$http', '$stateParams',
     function ($scope, $http, $stateParams) {
-        $http.get('/api/albums/' + $stateParams.id)
+        $http.get('/api/albums/' + $stateParams.id + '?token=' + token)
             .success(function (data) {
                 $scope.album = data;
                 console.log(data);
             });
 
-        $http.get('/api/albums/' + $stateParams.id + '/photos')
+        $http.get('/api/albums/' + $stateParams.id + '/photos?token=' + token)
             .success(function (data) {
                 $scope.photos = data;
             });
@@ -62,7 +63,7 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$http', '$stateParams',
 
 albumCtrl.controller('AdminListAlbums', ['$scope','$http',
     function ($scope, $http) {
-        $http.get('/api/albums')
+        $http.get('/api/albums?token=' + token)
             .success(function (data) {
                 $scope.albums = data.map(function (item) {
                     return {
@@ -126,7 +127,7 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
             //Save Function
             $scope.saveAlbum = function ($event) {
                 $($event.currentTarget).button('loading');
-                $http.post('/api/albums', $scope.album)
+                $http.post('/api/albums?token=' + token, $scope.album)
                 .success(function (data) {
                         Notification.success('Album created :)');
                         $state.go('adminAlbums');
@@ -136,10 +137,11 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
         //Edit
         else {
             //Get album
-            $http.get('/api/albums/' + $stateParams.id)
+            $http.get('/api/albums/' + $stateParams.id + '?token=' + token)
                 .success(function (data) {
                     $scope.album = data;
 
+                    console.log($scope.album);
                     if ($scope.album.coverDetails != null) {
                         $scope.cropperOpt['built'] = function () {
                             $('#cropper-img').cropper('setData', data.coverDetails);
@@ -153,7 +155,7 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
                         if ($scope.album.cover != undefined) {
                             $scope.album.coverDetails = $('#cropper-img').cropper('getData');
                         }
-                        $http.put('/api/albums/' + $stateParams.id, $scope.album)
+                        $http.put('/api/albums/' + $stateParams.id + '?token=' + token, $scope.album)
                             .success(function (data) {
                                 Notification.success('Album saved ;)');
                                 $state.go('adminAlbums');
@@ -161,10 +163,16 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
                     }
                 });
 
-            $http.get('/api/albums/' + $stateParams.id + '/photos')
+            $http.get('/api/albums/' + $stateParams.id + '/photos?token=' + token)
                 .success(function (data) {
                     $scope.photos = data;
                 });
+
+            $http.get('/api/users?token=' + token)
+                .success(function (data) {
+                    $scope.users = data;
+                });
+
         }
     }
 ]);

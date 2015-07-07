@@ -2,10 +2,17 @@ var express = require('express');
 var router = express.Router();
 var Album = require('../models/album').Album;
 var Photo = require('../models/photo').Photo;
+var LoginHelper = new (require('../aux/loginHelper'));
 
 
-router.get('/:id', function (req, res) {
-    Album.findById(req.params.id)
+router.get('/:id', LoginHelper.validateToken, function (req, res) {
+    var queryParams = { _id: req.params.id };
+
+    if (!req.loggedUser.isAdmin) {
+        queryParams.owner = req.loggedUser._id;
+    }
+
+    Album.find(queryParams)
         .populate('cover')
         .exec(function (err, data) {
             if (err) {
@@ -16,9 +23,16 @@ router.get('/:id', function (req, res) {
         });
 });
 
-router.get('/', function (req, res) {
-    Album.find()
-        .sort({ title: 'asc' })
+router.get('/', LoginHelper.validateToken, function (req, res) {
+    var query;
+
+    if (req.loggedUser.isAdmin) {
+        query = Album.find();
+    } else {
+        query = Album.find({ owner: req.loggedUser._id });
+    }
+
+    query.sort({ title: 'asc' })
         .populate('cover')
         .exec(function (err, data) {
             if (err) {
@@ -29,7 +43,7 @@ router.get('/', function (req, res) {
         });
 });
 
-router.get('/:id/photos', function (req, res) {
+router.get('/:id/photos', LoginHelper.validateToken, function (req, res) {
     Photo.find({albums: req.params.id }, function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
@@ -39,7 +53,8 @@ router.get('/:id/photos', function (req, res) {
     });
 });
 
-router.put('/:id', function (req, res) {
+router.put('/:id', LoginHelper.validateAdminToken, function (req, res) {
+    req.body.updatedAt = new Date();
     Album.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
@@ -51,8 +66,11 @@ router.put('/:id', function (req, res) {
     })
 });
 
-router.post('/', function (req, res) {
+router.post('/', LoginHelper.validateAdminToken, function (req, res) {
     var newAlbum = new Album(req.body);
+    newAlbum.createdAt = new Date();
+    newAlbum.updatedAt = new Date();
+
     newAlbum.save(function (err, savedData) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});

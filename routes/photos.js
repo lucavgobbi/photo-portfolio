@@ -31,6 +31,7 @@ router.get('/', function (req, res) {
 });
 
 router.put('/:id', function (req, res) {
+    req.body.updatedAt = new Date();
     Photo.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
@@ -44,6 +45,9 @@ router.put('/:id', function (req, res) {
 
 router.post('/', function (req, res) {
     var newPhoto = new Photo(req.body);
+    newPhoto.createdAt = new Date();
+    newPhoto.updatedAt = new Date();
+
     newPhoto.save(function (err, savedData) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});

@@ -22,6 +22,7 @@
     "hover.css": "*",
     "angular-ui-router": "*",
     "underscore": "*",
-    "cropper": "*"
+    "cropper": "*",
+    "crypto": "*"
   }
 }

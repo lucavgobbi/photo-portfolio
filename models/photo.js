@@ -10,7 +10,8 @@ var photoSchema = new Schema({
     title: { type: String, required: true },
     url: { type: String, required: true },
     dateTaken: Date,
-    dateCreated: Date,
+    createdAt: Date,
+    updatedAt: Date,
     albums: [{type: String, ref: 'Album'}]
 });
 

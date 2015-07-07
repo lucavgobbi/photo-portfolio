@@ -15,7 +15,7 @@ form(name='form', novalidate=)
                     required, data-toggle='tooltip' data-placement='top', title='This value will be shown on the URL')
                     div(ng-show='form._id.$error.required') Unique album Id is required
                 div(class='form-group', ng-class='{ "has-error": form.title.$error.required }')
-                    label Title
+                    label Title {{ album.title }}
                     input(ng-model='album.title', name='title', class='form-control', placeholder='Title', required,
                     data-toggle='tooltip' data-placement='top', title='Album title will appear every time that the album is show')
                     div(ng-show='form.title.$error.required') Title is required
@@ -33,6 +33,10 @@ form(name='form', novalidate=)
                             button(class='btn btn-default', type='button', ng-click='openDatePicker($event)')
                                 i(class='fa fa-calendar')
             div(class='col-md-6')
+                div(class='form-group')
+                    label Album Owner
+                    input(class='form-control', type='text', ng-model='album.owner',
+                    typeahead='user as user.name for user in users | filter: { name: $viewValue } | limitTo:8')
                 div(class='form-group')
                     label Album Cover
                     input(class='form-control', type='text', ng-model='album.cover', typeahead-on-select='reloadCropper()',
