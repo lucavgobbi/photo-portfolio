@@ -4,9 +4,10 @@
 var express = require('express');
 var router = express.Router();
 var Photo = require('../models/photo').Photo;
+var LoginHelper = new (require('../aux/loginHelper'));
 
 
-router.get('/:id', function (req, res) {
+router.get('/:id', LoginHelper.validateToken, function (req, res) {
     Photo.findById(req.params.id)
         .populate('albums')
         .exec(function (err, data) {
@@ -20,7 +21,7 @@ router.get('/:id', function (req, res) {
     })
 });
 
-router.get('/', function (req, res) {
+router.get('/', LoginHelper.validateToken, function (req, res) {
     Photo.find(function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
@@ -30,7 +31,7 @@ router.get('/', function (req, res) {
     });
 });
 
-router.put('/:id', function (req, res) {
+router.put('/:id', LoginHelper.validateAdminToken, function (req, res) {
     req.body.updatedAt = new Date();
     Photo.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
         if (err) {
@@ -43,7 +44,7 @@ router.put('/:id', function (req, res) {
     })
 });
 
-router.post('/', function (req, res) {
+router.post('/', LoginHelper.validateAdminToken, function (req, res) {
     var newPhoto = new Photo(req.body);
     newPhoto.createdAt = new Date();
     newPhoto.updatedAt = new Date();
@@ -57,7 +58,7 @@ router.post('/', function (req, res) {
     });
 });
 
-router.post('/:id/addToAlbum/:albumId', function (req, res) {
+router.post('/:id/addToAlbum/:albumId', LoginHelper.validateAdminToken, function (req, res) {
     Photo.findById(req.params.id, function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
@@ -74,7 +75,7 @@ router.post('/:id/addToAlbum/:albumId', function (req, res) {
     })
 });
 
-router.delete('/:id/addToAlbum/:albumId', function (req, res) {
+router.delete('/:id/addToAlbum/:albumId', LoginHelper.validateAdminToken, function (req, res) {
     Photo.findById(req.params.id, function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});

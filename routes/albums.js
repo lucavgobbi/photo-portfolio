@@ -12,7 +12,7 @@ router.get('/:id', LoginHelper.validateToken, function (req, res) {
         queryParams.owner = req.loggedUser._id;
     }
 
-    Album.find(queryParams)
+    Album.findOne(queryParams)
         .populate('cover')
         .exec(function (err, data) {
             if (err) {

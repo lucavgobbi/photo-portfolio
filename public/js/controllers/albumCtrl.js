@@ -141,7 +141,6 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
                 .success(function (data) {
                     $scope.album = data;
 
-                    console.log($scope.album);
                     if ($scope.album.coverDetails != null) {
                         $scope.cropperOpt['built'] = function () {
                             $('#cropper-img').cropper('setData', data.coverDetails);
