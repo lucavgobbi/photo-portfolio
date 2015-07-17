@@ -6,7 +6,7 @@ var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap', 'ui-notification'])
 function openAlbumDialog ($event, $scope, $http) {
     $($event.currentTarget).button('loading');
     $scope.albumToAdd = undefined;
-    $http.get('/api/albums')
+    $http.get('/api/albums?token=' + $scope.currentUser.token)
         .success(function (data) {
             $scope.albums = data;
             $('#albumDialog').modal();
@@ -25,7 +25,7 @@ photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
             var selectedAlbum = $scope.albumToAdd;
             _.each(selectedPhotos, function (inputHtml) {
                 var photoId = $(inputHtml).data('id');
-                $http.post('/api/photos/' + photoId + '/addToAlbum/' + selectedAlbum._id)
+                $http.post('/api/photos/' + photoId + '/addToAlbum/' + selectedAlbum._id + '?token=' + $scope.currentUser.token)
                     .success(function (photo) {
                         Notification.success(photo.title + ' added to album ' + selectedAlbum.title);
                     });
@@ -33,7 +33,7 @@ photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
             $('#albumDialog').modal('hide');
         };
 
-        $http.get('/api/photos')
+        $http.get('/api/photos?token=' + $scope.currentUser.token)
             .success(function (data) {
                 $scope.photos = data.map(function (item) {
                     return {
@@ -89,7 +89,7 @@ photoCtrl.controller('AdminViewPhoto', ['$scope', '$rootScope', '$state', '$stat
 
             //Save Function
             $scope.savePhoto = function () {
-                $http.post('/api/photos', $scope.photo)
+                $http.post('/api/photos?token=' + $scope.currentUser.token, $scope.photo)
                     .success(function (data) {
                         Notification.success('Photo added ;)');
                         $state.go('adminPhotos');
@@ -99,13 +99,13 @@ photoCtrl.controller('AdminViewPhoto', ['$scope', '$rootScope', '$state', '$stat
         //Edit
         else {
             //Get photo
-            $http.get('/api/photos/' + $stateParams.id)
+            $http.get('/api/photos/' + $stateParams.id + '?token=' + $scope.currentUser.token)
                 .success(function (data) {
                     $scope.photo = data;
 
                     //Save function
                     $scope.savePhoto = function () {
-                        $http.put('/api/photos/' + $stateParams.id, $scope.photo)
+                        $http.put('/api/photos/' + $stateParams.id + '?token=' + $scope.currentUser.token, $scope.photo)
                             .success(function (data) {
                                 Notification.success('Photo updated :)');
                                 $state.go('adminPhotos');

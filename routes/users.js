@@ -7,13 +7,15 @@ var User = require('../models/user').User;
 var LoginHelper = new (require('../aux/loginHelper'));
 
 router.get('/', LoginHelper.validateAdminToken, function (req, res) {
-    User.find(function (err, data) {
-        if (err) {
-            res.status(500).json({error: true, type: 'internal_error', details: err});
-        } else {
-            res.status(200).json(data);
-        }
-    });
+    User.find()
+        .select({ login: 1, name: 1, isAdmin: 1 })
+        .exec(function (err, data) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else {
+                res.status(200).json(data);
+            }
+        });
 });
 
 router.post('/', LoginHelper.validateAdminToken, function (req, res) {
@@ -49,7 +51,7 @@ router.post('/login', function (req, res) {
                     if (err){
                         res.status(500).json({error: true, type: 'internal_error', details: err});
                     } else {
-                        res.status(200).json({ login: user.login, token: user.token });
+                        res.status(200).json({ login: user.login, token: user.token, name: user.name });
                     }
                 });
             });

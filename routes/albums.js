@@ -14,6 +14,7 @@ router.get('/:id', LoginHelper.validateToken, function (req, res) {
 
     Album.findOne(queryParams)
         .populate('cover')
+        .populate('owner', { login: 1, name: 1 })
         .exec(function (err, data) {
             if (err) {
                 res.status(500).json({error: true, type: 'internal_error', details: err});
@@ -55,6 +56,11 @@ router.get('/:id/photos', LoginHelper.validateToken, function (req, res) {
 
 router.put('/:id', LoginHelper.validateAdminToken, function (req, res) {
     req.body.updatedAt = new Date();
+
+    if(req.body.isPortfolio) {
+        req.body.owner = null;
+    }
+
     Album.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
@@ -70,6 +76,10 @@ router.post('/', LoginHelper.validateAdminToken, function (req, res) {
     var newAlbum = new Album(req.body);
     newAlbum.createdAt = new Date();
     newAlbum.updatedAt = new Date();
+
+    if(newAlbum.isPortfolio) {
+        delete newAlbum.owner;
+    }
 
     newAlbum.save(function (err, savedData) {
         if (err) {

@@ -7,9 +7,14 @@ loginModalCtrl.controller('DoLogin', ['$scope', '$http',
     function ($scope, $http) {
         this.cancel = $scope.$dismiss;
 
-        this.submit = function (email, password) {
+        $scope.submit = function ($event) {
+            $($event.currentTarget).button('loading');
 
-            $scope.close(user);
+            $http.post('/api/users/login', { login: $scope.login, password: $scope.password })
+                .success(function (data) {
+                    $scope.$close(data);
+                });
+
         }
     }
 ]);

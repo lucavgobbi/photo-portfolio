@@ -34,6 +34,12 @@ form(name='form', novalidate=)
                                 i(class='fa fa-calendar')
             div(class='col-md-6')
                 div(class='form-group')
+                    label Album Type
+                    div(class='checkbox')
+                        label
+                            input(type='checkbox', ng-model='album.isPortfolio')
+                            p Portfolio (If checked the album will be public)
+                div(class='form-group', ng-show='!album.isPortfolio')
                     label Album Owner
                     input(class='form-control', type='text', ng-model='album.owner',
                     typeahead='user as user.name for user in users | filter: { name: $viewValue } | limitTo:8')

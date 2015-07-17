@@ -14,7 +14,8 @@ loginService.factory('loginModal', ['$modal', '$rootScope',
             var instance = $modal.open({
                 templateUrl: '/home/loginModal',
                 controller: 'DoLogin',
-                controllerAs: 'DoLogin'
+                controllerAs: 'DoLogin',
+                size: 'sm'
             });
 
             return instance.result.then(assignCurrentUser);

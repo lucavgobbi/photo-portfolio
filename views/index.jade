@@ -25,5 +25,8 @@ block content
                                     a(ui-sref='adminPhotos') Manage Photos
                                 li
                                     a(ui-sref='adminAlbums') Manage Albums
+                    ul(class='nav navbar-nav navbar-right', ng-hide='currentUser == undefined')
+                        li
+                            a {{ currentUser.name }}
         div(class='center-container', ui-view)
 

@@ -66,9 +66,13 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
 ppApp.run(['$rootScope', '$state', 'loginModal', function ($rootScope, $state, loginModal) {
     $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams) {
-            var requireLogin = toState.data.requireLogin;
+            var requireLogin = false;
+            if (toState.data != undefined && toState.data.requireLogin != undefined) {
+                requireLogin = toState.data.requireLogin;
+            }
 
             if (requireLogin && typeof $rootScope.currentUser == 'undefined') {
+                event.preventDefault();
                 //Login window
                 loginModal()
                     .then(function () {
