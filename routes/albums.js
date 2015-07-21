@@ -45,6 +45,7 @@ router.get('/', LoginHelper.validateToken, function (req, res) {
 });
 
 router.get('/:id/photos', LoginHelper.validateToken, function (req, res) {
+    //TODO: add owner verification
     Photo.find({albums: req.params.id }, function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});

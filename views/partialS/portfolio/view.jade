@@ -1,0 +1,32 @@
+//
+   Created by lucavgobbi on 7/5/15.
+
+div(class='col-md-3 col-sm-12')
+    h3 {{ portfolio.title }}
+    h4 {{ portfolio.shortDescription }}
+    p {{ portfolio.description }}
+div(class='col-md-9 col-sm-12 padding-top-10')
+    div(id='links')
+        a(ng-repeat='photo in photos', href='{{ photo.url }}', title='{{ photo.title }}', data-gallery)
+            img(ng-src='{{ photo.url }}', class='medium-thumbs thumbs-padding' title='{{ photo.title }}')
+
+    div(class='blueimp-gallery', id='blueimp-gallery', data-use-bootstrap-modal="false")
+        div(class='slides')
+        h3(class='title')
+        a(class='prev')
+        a(class='next')
+        a(class='close')
+        a(class='play-pause')
+        ol(class='indicator')
+        div(class='modal fade')
+            div(class='modal-dialog')
+                div(class='modal-content')
+                    div(class='modal-header')
+                        button(type='button', class='close', aria-hidden='true') &times;
+                        h4(class='modal-title')
+                    div(class='modal-body next')
+                    div(class='modal-footer')
+                        button(type='button', class='btn btn-default pull-left prev')
+                            i(class='glyphicon glyphicon-chevron-left') Previous
+                        button(type='button', class='btn btn-primary next')
+                            i(class='glyphicon glyphicon-chevron-right') Next

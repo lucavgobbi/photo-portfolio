@@ -1,7 +1,7 @@
 /**
  * Created by lucavgobbi on 3/21/15.
  */
-var ppApp = angular.module('ppApp', ['ui.router', 'homeCtrl', 'albumCtrl', 'photoCtrl', 'loginModalCtrl', 'loginService']);
+var ppApp = angular.module('ppApp', ['ui.router', 'homeCtrl', 'albumCtrl', 'photoCtrl', 'portfolioCtrl', 'loginModalCtrl', 'loginService']);
 
 ppApp.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
@@ -12,6 +12,16 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
                 url: '/',
                 templateUrl: '/home/index',
                 controller: 'ShowHome'
+            })
+            .state('portfolio', {
+                url: '/portfolio',
+                templateUrl: '/portfolio/index',
+                controller: 'ListPortfolios'
+            })
+            .state('portfolioDetails', {
+                url: '/portfolio/:id',
+                templateUrl: '/portfolio/view',
+                controller: 'ViewPortfolio'
             })
             .state('albums', {
                 url: '/albums',
@@ -74,6 +84,7 @@ ppApp.run(['$rootScope', '$state', 'loginModal', function ($rootScope, $state, l
             if (requireLogin && typeof $rootScope.currentUser == 'undefined') {
                 event.preventDefault();
                 //Login window
+
                 loginModal()
                     .then(function () {
                         return $state.go(toState.name, toParams);

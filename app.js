@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -11,6 +10,7 @@ var web = require('./routes/web');
 var albums = require('./routes/albums');
 var photos = require('./routes/photos');
 var users = require('./routes/users');
+var portfolios = require('./routes/portfolios');
 
 var app = express();
 
@@ -35,6 +35,7 @@ mongoose.connect('mongodb://user:password@127.0.0.1:27017/photo-portfolio');
 app.use('/api/albums', albums);
 app.use('/api/photos', photos);
 app.use('/api/users', users);
+app.use('/api/portfolios', portfolios);
 
 // These are the views routes used by Angular
 app.use('/', web);

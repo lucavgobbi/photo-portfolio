@@ -1,0 +1,16 @@
+//
+   Created by lucavgobbi on 3/21/15.
+
+ul(class='photo-grid')
+    li(ng-repeat='portfolio in portfolios')
+        a(ui-sref='portfolioDetails({id: portfolio.name})')
+            figure
+                img(lvg-caman,
+                    lvg-caman-crop-x='{{ portfolio.coverDetails.x }}',
+                    lvg-caman-crop-y='{{ portfolio.coverDetails.y }}',
+                    lvg-caman-crop-width='{{ portfolio.coverDetails.width }}',
+                    lvg-caman-crop-height='{{ portfolio.coverDetails.height }}',
+                    id='{{ portfolio.name }}',
+                    ng-src='{{ portfolio.cover }}')
+                figcaption
+                    p {{ portfolio.title }}

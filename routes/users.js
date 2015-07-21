@@ -51,7 +51,7 @@ router.post('/login', function (req, res) {
                     if (err){
                         res.status(500).json({error: true, type: 'internal_error', details: err});
                     } else {
-                        res.status(200).json({ login: user.login, token: user.token, name: user.name });
+                        res.status(200).json({ login: user.login, token: user.token, name: user.name, isAdmin: user.isAdmin });
                     }
                 });
             });

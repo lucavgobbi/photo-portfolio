@@ -17,7 +17,10 @@ block content
                             a(ui-sref='portfolio') Portfolio
                         li
                             a(ui-sref='albums') Albums
-                        li(class='dropdown')
+                    ul(class='nav navbar-nav navbar-right', ng-hide='currentUser == undefined')
+                        li
+                            a Hello {{ currentUser.name }}
+                        li(class='dropdown', ng-show='currentUser.isAdmin')
                             a(class='dropdown-toggle', data-toggle='dropdown', role='button') Admin
                                 span(class='carret')
                             ul(class='dropdown-menu', role='menu')
@@ -25,8 +28,5 @@ block content
                                     a(ui-sref='adminPhotos') Manage Photos
                                 li
                                     a(ui-sref='adminAlbums') Manage Albums
-                    ul(class='nav navbar-nav navbar-right', ng-hide='currentUser == undefined')
-                        li
-                            a {{ currentUser.name }}
         div(class='center-container', ui-view)
 
