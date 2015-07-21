@@ -4,8 +4,13 @@
 
 var portfolioCtrl = angular.module('portfolioCtrl', ['ui.bootstrap', 'lvgCamanMod']);
 
-portfolioCtrl.controller('ListPortfolios', ['$scope','$http',
-    function ($scope, $http) {
+portfolioCtrl.controller('ListPortfolios', ['$scope','$http', '$location', '$anchorScroll',
+    function ($scope, $http, $location, $anchorScroll) {
+        $scope.scrollTo = function(id) {
+            $location.hash(id);
+            $anchorScroll();
+        };
+
         $http.get('/api/portfolios')
             .success(function (data) {
                 $scope.portfolios = data.map(function (item) {

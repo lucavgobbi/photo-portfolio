@@ -11,7 +11,7 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             .state('home', {
                 url: '/',
                 templateUrl: '/home/index',
-                controller: 'ShowHome'
+                controller: 'ListPortfolios'
             })
             .state('portfolio', {
                 url: '/portfolio',

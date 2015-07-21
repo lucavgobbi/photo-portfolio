@@ -6,6 +6,7 @@ html(lang='en', ng-app="ppApp")
         meta(name='viewport', content='width=device-width, initial-scale=1')
         title= title
         link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/grayscale.css')
         link(rel='stylesheet', href='/stylesheets/lib/bootstrap/bootstrap.min.css')
         link(rel='stylesheet', href='/stylesheets/lib/hover/hover-min.css')
         link(rel='stylesheet', href='/stylesheets/lib/animate/animate.css')
@@ -13,10 +14,11 @@ html(lang='en', ng-app="ppApp")
         link(rel='stylesheet', href='/stylesheets/lib/angular-ui-notification/angular-ui-notification.min.css')
         link(rel='stylesheet', href='/stylesheets/lib/cropper/cropper.min.css')
         link(rel='stylesheet', href='http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css')
-    body
+    body(id='page-top', )
         block content
 //libs
 script(src='/js/lib/jquery/jquery.min.js')
+script(src='/js/lib/jquery/jquery.easing.min.js')
 script(src='/js/lib/angular/angular.min.js')
 script(src='/js/lib/angular-ui-router/angular-ui-router.min.js')
 script(src='/js/lib/angular-resource/angular-resource.min.js')
@@ -29,6 +31,7 @@ script(src='/js/lib/angular-ui-notification/angular-ui-notification.min.js')
 script(src='/js/lib/underscore/underscore-min.js')
 script(src='/js/lib/cropper/cropper.min.js')
 script(src='/js/lib/caman/caman.full.min.js')
+script(src='/js/lib/grayscale/grayscale.js')
 //app
 script(src='/js/app.js')
 script(src='/js/directives/lvgCaman.js')
