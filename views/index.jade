@@ -2,9 +2,11 @@ extends layout
 
 block content
     #wrap
-        nav(class=['navbar', 'navbar-default', 'navbar-fixed-top'])
+        nav(class='navbar navbar-black navbar-fixed-top', ng-class='transparentNavBar ? "" : "top-nav-collapse"')
             div(class='container-fluid')
                 div(class='navbar-header')
+                    a(class='navbar-brand')
+                        img(class='img-logo', src='/images/logo.png')
                     button(type='button', class='navbar-toggle collapsed', data-toggle='collapse', data-target='#navbar-topmenu')
                         span(class='icon-bar')
                         span(class='icon-bar')
@@ -28,5 +30,4 @@ block content
                                     a(ui-sref='adminPhotos') Manage Photos
                                 li
                                     a(ui-sref='adminAlbums') Manage Albums
-        div(class='center-container', ui-view)
-
+        div(class='center-container', ng-class='transparentNavBar ? "" : "padding-top-50 "', ui-view)

@@ -1,7 +1,7 @@
 /**
  * Created by lucavgobbi on 3/21/15.
  */
-var ppApp = angular.module('ppApp', ['ui.router', 'homeCtrl', 'albumCtrl', 'photoCtrl', 'portfolioCtrl', 'loginModalCtrl', 'loginService']);
+var ppApp = angular.module('ppApp', ['ui.router', 'ngAnimate', 'homeCtrl', 'albumCtrl', 'photoCtrl', 'portfolioCtrl', 'loginModalCtrl', 'loginService']);
 
 ppApp.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
@@ -11,7 +11,10 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             .state('home', {
                 url: '/',
                 templateUrl: '/home/index',
-                controller: 'ShowHome'
+                controller: 'ShowHome',
+                data: {
+                    transparentNavBar: true
+                }
             })
             .state('portfolio', {
                 url: '/portfolio',
@@ -77,9 +80,19 @@ ppApp.run(['$rootScope', '$state', 'loginModal', function ($rootScope, $state, l
     $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams) {
             var requireLogin = false;
-            if (toState.data != undefined && toState.data.requireLogin != undefined) {
-                requireLogin = toState.data.requireLogin;
+            var transparentNavBar = false;
+
+            if (toState.data != undefined) {
+                if (toState.data.requireLogin != undefined) {
+                    requireLogin = toState.data.requireLogin;
+                }
+
+                if (toState.data.transparentNavBar != undefined) {
+                    transparentNavBar = toState.data.transparentNavBar;
+                }
             }
+
+            $rootScope.transparentNavBar = transparentNavBar;
 
             if (requireLogin && typeof $rootScope.currentUser == 'undefined') {
                 event.preventDefault();
