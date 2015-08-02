@@ -5,6 +5,23 @@ var albumCtrl = angular.module('albumCtrl', ['ui.bootstrap', 'ui-notification', 
 
 albumCtrl.controller('ListAlbums', ['$scope','$http',
     function ($scope, $http) {
+        $http.get('/api/albums/public')
+            .success(function (data) {
+                $scope.albums = data.map(function (item) {
+                    return {
+                        name: item._id,
+                        title: item.title,
+                        shortDescription: item.shortDescription,
+                        cover: item.cover != undefined ? item.cover.url : undefined,
+                        coverDetails: item.coverDetails
+                    }
+                });
+            })
+    }
+]);
+
+albumCtrl.controller('ListPrivateAlbums', ['$scope','$http',
+    function ($scope, $http) {
         $http.get('/api/albums?token=' + $scope.currentUser.token)
             .success(function (data) {
                 $scope.albums = data.map(function (item) {

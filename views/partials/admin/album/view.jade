@@ -15,7 +15,7 @@ form(name='form', novalidate=)
                     required, data-toggle='tooltip' data-placement='top', title='This value will be shown on the URL')
                     div(ng-show='form._id.$error.required') Unique album Id is required
                 div(class='form-group', ng-class='{ "has-error": form.title.$error.required }')
-                    label Title {{ album.title }}
+                    label Title
                     input(ng-model='album.title', name='title', class='form-control', placeholder='Title', required,
                     data-toggle='tooltip' data-placement='top', title='Album title will appear every time that the album is show')
                     div(ng-show='form.title.$error.required') Title is required
@@ -35,11 +35,19 @@ form(name='form', novalidate=)
             div(class='col-md-6')
                 div(class='form-group')
                     label Album Type
-                    div(class='checkbox')
+                    div(class='radio')
                         label
-                            input(type='checkbox', ng-model='album.isPortfolio')
-                            p Portfolio (If checked the album will be public)
-                div(class='form-group', ng-show='!album.isPortfolio')
+                            input(type='radio', ng-model='album.type', value='public', automplete='false')
+                            | Public
+                    div(class='radio')
+                        label
+                            input(type='radio', ng-model='album.type', value='private', automplete='false')
+                            | Private
+                    div(class='radio')
+                        label
+                            input(type='radio', ng-model='album.type', value='portfolio', automplete='false')
+                            | Portfolio
+                div(class='form-group', ng-show='album.type == "private"')
                     label Album Owner
                     input(class='form-control', type='text', ng-model='album.owner',
                     typeahead='user as user.name for user in users | filter: { name: $viewValue } | limitTo:8')

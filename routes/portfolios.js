@@ -7,7 +7,7 @@ var Album = require('../models/album').Album;
 var Photo = require('../models/photo').Photo;
 
 router.get('/', function (req, res) {
-    var query = Album.find({ isPortfolio: true });
+    var query = Album.find({ type: 'portfolio' });
 
     query.sort({ title: 'asc' })
         .populate('cover')
@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/:id', function (req, res) {
-    var queryParams = { _id: req.params.id, isPortfolio: true };
+    var queryParams = { _id: req.params.id, type: 'portfolio' };
 
     Album.findOne(queryParams)
         .populate('cover')

@@ -4,6 +4,18 @@ var Album = require('../models/album').Album;
 var Photo = require('../models/photo').Photo;
 var LoginHelper = new (require('../aux/loginHelper'));
 
+router.get('/public', function (req, res) {
+    Album.find({ type: 'public' })
+        .sort({ title: 'asc' })
+        .populate('cover')
+        .exec(function (err, data) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else {
+                res.status(200).json(data);
+            }
+        });
+});
 
 router.get('/:id', LoginHelper.validateToken, function (req, res) {
     var queryParams = { _id: req.params.id };
@@ -58,7 +70,7 @@ router.get('/:id/photos', LoginHelper.validateToken, function (req, res) {
 router.put('/:id', LoginHelper.validateAdminToken, function (req, res) {
     req.body.updatedAt = new Date();
 
-    if(req.body.isPortfolio) {
+    if(req.body.type != 'private') {
         req.body.owner = null;
     }
 
@@ -78,7 +90,7 @@ router.post('/', LoginHelper.validateAdminToken, function (req, res) {
     newAlbum.createdAt = new Date();
     newAlbum.updatedAt = new Date();
 
-    if(newAlbum.isPortfolio) {
+    if(newAlbum.type != 'private') {
         delete newAlbum.owner;
     }
 

@@ -29,7 +29,12 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             .state('albums', {
                 url: '/albums',
                 templateUrl: '/album/index',
-                controller: 'ListAlbums',
+                controller: 'ListAlbums'
+            })
+            .state('privateAlbums', {
+                url: '/privateAlbums',
+                templateUrl: '/album/index',
+                controller: 'ListPrivateAlbums',
                 data: {
                     requireLogin: true
                 }

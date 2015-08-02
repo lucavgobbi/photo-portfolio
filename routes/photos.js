@@ -6,7 +6,6 @@ var router = express.Router();
 var Photo = require('../models/photo').Photo;
 var LoginHelper = new (require('../aux/loginHelper'));
 
-
 router.get('/:id', LoginHelper.validateToken, function (req, res) {
     Photo.findById(req.params.id)
         .populate('albums')
@@ -51,11 +50,47 @@ router.post('/', LoginHelper.validateAdminToken, function (req, res) {
 
     newPhoto.save(function (err, savedData) {
         if (err) {
-            res.status(500).json({error: true, type: 'internal_error', details: err});
         } else {
             res.status(201).json(savedData);
         }
     });
+});
+
+function moveAndCreatePhoto (filename, callback) {
+    var fs = require('fs');
+    fs.rename('import/' + filename, 'public/images/' + filename, function (err) {
+        if (err) {
+            callback(err);
+        } else {
+            var newPhoto = new Photo();
+            newPhoto.createdAt = new Date();
+            newPhoto.updatedAt = new Date();
+            newPhoto.title = filename;
+            newPhoto.url = '/images/' + filename;
+
+            newPhoto.save(function (err, savedData) {
+                if (err) {
+                    callback(err);
+                } else {
+                    callback();
+                }
+            });
+        }
+    });
+}
+
+router.post('/import', function (req, res) {
+    var fs = require('fs');
+    fs.readdir('import', function (err, files) {
+        require('async').each(files, moveAndCreatePhoto, function (err) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else {
+                res.status(200).json({error: false, data: files});
+            }
+        });
+    });
+
 });
 
 router.post('/:id/addToAlbum/:albumId', LoginHelper.validateAdminToken, function (req, res) {

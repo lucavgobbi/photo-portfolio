@@ -23,6 +23,7 @@
     "angular-ui-router": "*",
     "underscore": "*",
     "cropper": "*",
-    "crypto": "*"
+    "crypto": "*",
+    "async": "*"
   }
 }

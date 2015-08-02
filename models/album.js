@@ -20,7 +20,7 @@ var albumSchema = new Schema({
         width: Number
     },
     owner: { type: Schema.Types.ObjectId, ref: 'User'},
-    isPortfolio: Boolean
+    type: { type: String, enum: ['public', 'private', 'portfolio']}
 });
 
 var album = mongoose.model('Album', albumSchema);

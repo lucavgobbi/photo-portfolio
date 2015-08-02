@@ -1,9 +1,9 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var config = require('./config');
 
 
 var web = require('./routes/web');
@@ -18,16 +18,14 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to mongodb
-mongoose.connect('mongodb://user:password@127.0.0.1:27017/photo-portfolio');
+mongoose.connect('mongodb://' + config.mongoDb.user + ':' + config.mongoDb.password +
+    '@' + config.mongoDb.server + ':' + config.mongoDb.port + '/' + config.mongoDb.databaseName);
 
 // All the routes are described here
 
