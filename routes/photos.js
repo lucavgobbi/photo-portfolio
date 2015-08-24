@@ -58,7 +58,9 @@ router.post('/', LoginHelper.validateAdminToken, function (req, res) {
 
 function moveAndCreatePhoto (filename, callback) {
     var fs = require('fs');
-    fs.rename('import/' + filename, 'public/images/' + filename, function (err) {
+    var crypto = require('crypto');
+    var newFileName = crypto.randomBytes(32).toString('hex') + filename;
+    fs.rename('import/' + filename, 'public/images/' + newFileName, function (err) {
         if (err) {
             callback(err);
         } else {
@@ -66,7 +68,7 @@ function moveAndCreatePhoto (filename, callback) {
             newPhoto.createdAt = new Date();
             newPhoto.updatedAt = new Date();
             newPhoto.title = filename;
-            newPhoto.url = '/images/' + filename;
+            newPhoto.url = '/images/' + newFileName;
 
             newPhoto.save(function (err, savedData) {
                 if (err) {

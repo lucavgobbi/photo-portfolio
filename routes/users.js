@@ -8,7 +8,7 @@ var LoginHelper = new (require('../aux/loginHelper'));
 
 router.get('/', LoginHelper.validateAdminToken, function (req, res) {
     User.find()
-        .select({ login: 1, name: 1, isAdmin: 1 })
+        .select({ _id: 1, login: 1, name: 1, isAdmin: 1 })
         .exec(function (err, data) {
             if (err) {
                 res.status(500).json({error: true, type: 'internal_error', details: err});

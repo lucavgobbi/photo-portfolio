@@ -1,0 +1,21 @@
+//
+   Created by lucavgobbi on 2015-08-24.
+
+div(class='container')
+    div(class='row')
+        p(class='navbar-text')
+            a(class='btn btn-success', href='#/admin/user/new')
+                i(class='fa fa-plus')  Create user
+    div(class='row')
+        table(class='table')
+            thead
+                th Title
+                th Name
+                th Actions
+            tbody(class='table-striped')
+                tr(ng-repeat='user in users')
+                    td {{ user.login }}
+                    td {{ user.name }}
+                    td
+                        a(class='btn btn-sm btn-default', ui-sref='adminAlbumDetails({id: user._id})')
+                            i(class='fa fa-edit')  Edit

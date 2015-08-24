@@ -1,7 +1,8 @@
 /**
  * Created by lucavgobbi on 3/21/15.
  */
-var ppApp = angular.module('ppApp', ['ui.router', 'ngAnimate', 'homeCtrl', 'albumCtrl', 'photoCtrl', 'portfolioCtrl', 'loginModalCtrl', 'loginService']);
+var ppApp = angular.module('ppApp', ['ui.router', 'ngAnimate', 'homeCtrl', 'albumCtrl',
+    'photoCtrl', 'userCtrl', 'portfolioCtrl', 'loginModalCtrl', 'loginService']);
 
 ppApp.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
@@ -75,6 +76,14 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
                 url: '/admin/photo/:id',
                 templateUrl: '/admin/photo/view',
                 controller: 'AdminViewPhoto',
+                data: {
+                    requireLogin: true
+                }
+            })
+            .state('adminUsers', {
+                url: '/admin/users',
+                templateUrl: '/admin/user/index',
+                controller: 'AdminListUsers',
                 data: {
                     requireLogin: true
                 }

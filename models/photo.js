@@ -3,7 +3,6 @@
  */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
 var photoSchema = new Schema({
     description: String,
     shortDescription: String,
