@@ -6,6 +6,20 @@ var router = express.Router();
 var User = require('../models/user').User;
 var LoginHelper = new (require('../aux/loginHelper'));
 
+router.get('/:id', LoginHelper.validateAdminToken, function (req, res) {
+    User.findById(req.params.id)
+        .select({ _id: 1, login: 1, name: 1, isAdmin: 1 })
+        .exec(function (err, data) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else if (!data) {
+                res.status(404).json({error: false, message: 'not_found'});
+            }  else {
+                res.status(200).json(data);
+            }
+        });
+});
+
 router.get('/', LoginHelper.validateAdminToken, function (req, res) {
     User.find()
         .select({ _id: 1, login: 1, name: 1, isAdmin: 1 })

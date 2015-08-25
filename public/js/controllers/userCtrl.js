@@ -11,3 +11,41 @@ userCtrl.controller('AdminListUsers', ['$scope','$http',
             })
     }
 ]);
+
+userCtrl.controller('AdminViewUser', ['$scope', '$http', '$state', '$stateParams', 'Notification',
+    function ($scope, $http, $state, $stateParams, Notification) {
+        //New
+        if ($stateParams.id == 'new') {
+            $scope.user = {};
+
+            //Save Function
+            $scope.saveUser = function ($event) {
+                $($event.currentTarget).button('loading');
+                $http.post('/api/users?token=' + $scope.currentUser.token, $scope.user)
+                    .success(function (data) {
+                        Notification.success('User created :)');
+                        $state.go('adminUsers');
+                    });
+            }
+        }
+        //Edit
+        else {
+            //Get album
+            $http.get('/api/users/' + $stateParams.id + '?token=' + $scope.currentUser.token)
+                .success(function (data) {
+                    $scope.user = data;
+
+                    //Save function
+                    $scope.saveUser = function ($event) {
+                        $($event.currentTarget).button('loading');
+                        $http.put('/api/users/' + $stateParams.id + '?token=' + $scope.currentUser.token, $scope.user)
+                            .success(function (data) {
+                                Notification.success('User saved ;)');
+                                $state.go('adminUser');
+                            });
+                    }
+                });
+
+        }
+    }
+]);

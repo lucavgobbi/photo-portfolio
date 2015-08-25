@@ -11,11 +11,13 @@ div(class='container')
             thead
                 th Title
                 th Name
+                th Type
                 th Actions
             tbody(class='table-striped')
                 tr(ng-repeat='user in users')
                     td {{ user.login }}
                     td {{ user.name }}
+                    td {{ user.isAdmin ? 'Admin' : 'User' }}
                     td
-                        a(class='btn btn-sm btn-default', ui-sref='adminAlbumDetails({id: user._id})')
+                        a(class='btn btn-sm btn-default', ui-sref='adminUserDetails({id: user._id})')
                             i(class='fa fa-edit')  Edit

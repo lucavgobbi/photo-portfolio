@@ -14,7 +14,7 @@ router.get('/:id', LoginHelper.validateToken, function (req, res) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
         } else if (!data) {
             res.status(404).json({error: false, message: 'not_found'});
-        }else {
+        } else {
             res.status(200).json(data);
         }
     })

@@ -1,0 +1,26 @@
+//
+   Created by lucavgobbi on 2015-08-25.
+
+form(name='form', novalidate=)
+   div(class='container')
+      div(class='row')
+         p(class='navbar-text')
+            a(class='btn btn-success', data-loading-text='Saving...', ng-click='saveUser($event)')
+               i(class='fa fa-save')  Save User
+      div(class='row')
+         div(class='col-md-6')
+             div(class='form-group', ng-class='{ "has-error": form.login.$error.required }')
+                 label Login (User e-mail)
+                 input(ng-model='user.login', name='login', class='form-control', placeholder='Login (User e-mail)',
+                 required, data-toggle='tooltip' data-placement='top', title='User login to website')
+                 div(ng-show='form.login.$error.required') User Login is required
+             div(class='form-group', ng-class='{ "has-error": form.name.$error.required }')
+                 label Name
+                 input(ng-model='user.name', name='name', class='form-control', placeholder='Name', required,
+                 data-toggle='tooltip' data-placement='top', title='User name, used for greetings')
+                 div(ng-show='form.name.$error.required') Name is required
+             div(class='form-group', ng-class='{ "has-error": form.name.$error.required }')
+                 label Name
+                 input(ng-model='user.password', name='password', class='form-control', placeholder='Password', required,
+                 data-toggle='tooltip' data-placement='top', title='User password, make it hard to guess ;)')
+                 div(ng-show='form.password.$error.required') Password is required

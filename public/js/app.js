@@ -87,6 +87,14 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
                 data: {
                     requireLogin: true
                 }
+            })
+            .state('adminUserDetails', {
+                url: '/admin/user/:id',
+                templateUrl: '/admin/user/view',
+                controller: 'AdminViewUser',
+                data: {
+                    requireLogin: true
+                }
             });
     }]);
 

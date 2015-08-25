@@ -42,7 +42,6 @@ albumCtrl.controller('ViewAlbum', ['$scope', '$http', '$stateParams',
         $http.get('/api/albums/' + $stateParams.id + '?token=' + $scope.currentUser.token)
             .success(function (data) {
                 $scope.album = data;
-                console.log(data);
             });
 
         $http.get('/api/albums/' + $stateParams.id + '/photos?token=' + $scope.currentUser.token)
@@ -111,6 +110,12 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
 
         //end of cover selection
 
+        //Get users
+        $http.get('/api/users?token=' + $scope.currentUser.token)
+            .success(function (data) {
+                $scope.users = data;
+            });
+
         //New
         if ($stateParams.id == 'new') {
             $scope.album = {};
@@ -131,7 +136,6 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
             $http.get('/api/albums/' + $stateParams.id + '?token=' + $scope.currentUser.token)
                 .success(function (data) {
                     $scope.album = data;
-                    console.log(data);
                     if ($scope.album.coverDetails != null) {
                         $scope.cropperOpt['built'] = function () {
                             $('#cropper-img').cropper('setData', data.coverDetails);
@@ -145,7 +149,6 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
                         if ($scope.album.cover != undefined) {
                             $scope.album.coverDetails = $('#cropper-img').cropper('getData');
                         }
-                        console.log($scope.album);
                         $http.put('/api/albums/' + $stateParams.id + '?token=' + $scope.currentUser.token, $scope.album)
                             .success(function (data) {
                                 Notification.success('Album saved ;)');
@@ -158,12 +161,6 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
                 .success(function (data) {
                     $scope.photos = data;
                 });
-
-            $http.get('/api/users?token=' + $scope.currentUser.token)
-                .success(function (data) {
-                    $scope.users = data;
-                });
-
         }
     }
 ]);
