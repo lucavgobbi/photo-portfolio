@@ -60,8 +60,12 @@ function moveAndCreatePhoto (filename, callback) {
     var fs = require('fs');
     var crypto = require('crypto');
     var newFileName = crypto.randomBytes(32).toString('hex') + filename;
-    fs.rename('import/' + filename, 'public/images/' + newFileName, function (err) {
+    console.log('newFileName:' + newFileName);
+    fs.rename(appConfig.appPath + 'import/' + filename, appConfig.appPath + '/public/images/' + newFileName, function (err) {
+        console.log('Renamed');
         if (err) {
+            console.log(__dirname);
+            console.log(err);
             callback(err);
         } else {
             var newPhoto = new Photo();
@@ -83,7 +87,7 @@ function moveAndCreatePhoto (filename, callback) {
 
 router.post('/import', LoginHelper.validateAdminToken, function (req, res) {
     var fs = require('fs');
-    fs.readdir('import', function (err, files) {
+    fs.readdir(appConfig.appPath + 'import', function (err, files) {
         require('async').each(files, moveAndCreatePhoto, function (err) {
             if (err) {
                 res.status(500).json({error: true, type: 'internal_error', details: err});

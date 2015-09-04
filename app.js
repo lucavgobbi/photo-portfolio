@@ -3,7 +3,7 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var config = require('./config');
+appConfig = require('./config');
 
 
 var web = require('./routes/web');
@@ -24,8 +24,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to mongodb
-mongoose.connect('mongodb://' + config.mongoDb.user + ':' + config.mongoDb.password +
-    '@' + config.mongoDb.server + ':' + config.mongoDb.port + '/' + config.mongoDb.databaseName);
+mongoose.connect('mongodb://' + appConfig.mongoDb.user + ':' + appConfig.mongoDb.password +
+    '@' + appConfig.mongoDb.server + ':' + appConfig.mongoDb.port + '/' + appConfig.mongoDb.databaseName);
 
 // All the routes are described here
 
