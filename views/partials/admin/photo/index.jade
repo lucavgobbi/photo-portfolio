@@ -9,6 +9,8 @@ div(class='container')
             span(class='space-5')
             a(class='btn btn-default', data-loading-text='Loading Albums...', ng-click='openAlbumDialog($event)')
                 i(class='fa fa-folder-o')  Add photos to album
+            a(class='btn btn-default', data-loading-text='Importing Photos...', ng-click='importPhotos($event)')
+                i(class='fa fa-folder-o')  Import Photos
     div(class='row')
         table(class='table')
             thead

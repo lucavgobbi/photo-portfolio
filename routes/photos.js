@@ -81,7 +81,7 @@ function moveAndCreatePhoto (filename, callback) {
     });
 }
 
-router.post('/import', function (req, res) {
+router.post('/import', LoginHelper.validateAdminToken, function (req, res) {
     var fs = require('fs');
     fs.readdir('import', function (err, files) {
         require('async').each(files, moveAndCreatePhoto, function (err) {

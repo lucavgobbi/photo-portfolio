@@ -16,6 +16,21 @@ function openAlbumDialog ($event, $scope, $http) {
 
 photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
     function ($scope, $http, Notification) {
+        $scope.importPhotos = function ($event) {
+            $($event.currentTarget).button('loading');
+
+            $http.post('/api/photos/import?token=' + $scope.currentUser.token)
+                .success(function (data) {
+                    if (data.error) {
+                        Notification.error('An error occured :(');
+                    } else {
+                        Notification.success(data.data.length + ' images imported :)');
+                    }
+                    $($event.currentTarget).button('reset');
+
+                });
+        }
+
         $scope.openAlbumDialog = function ($event) {
             openAlbumDialog($event, $scope, $http);
         };

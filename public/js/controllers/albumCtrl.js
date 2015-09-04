@@ -1,6 +1,7 @@
 /**
  * Created by lucavgobbi on 3/21/15.
  */
+
 var albumCtrl = angular.module('albumCtrl', ['ui.bootstrap', 'ui-notification', 'lvgCamanMod']);
 
 albumCtrl.controller('ListAlbums', ['$scope','$http',
@@ -94,7 +95,6 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
             cropBoxResizable: true,
             checkImageOrigin: false
         };
-
         function showCropper() {
             $('#cropper-img').cropper($scope.cropperOpt);
         }
