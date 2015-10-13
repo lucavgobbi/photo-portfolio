@@ -2,5 +2,11 @@
    Created by lucavgobbi on 3/21/15.
 
 div(class='home-main')
-    h1(class='padding-top-50') Bruna Rico
-    p
+    div(class='padding-top-50', ng-bind-html='config.homeHTML')
+    span
+        a(class='social-network-icon', ng-show='config.twitterUrl', href='{{config.twitterUrl}}')
+            i(class='fa fa-twitter-square')
+        a(class='social-network-icon', ng-show='config.facebookUrl', href='{{config.facebookUrl}}')
+            i(class='fa fa-facebook-square')
+        a(class='social-network-icon', ng-show='config.instagramUrl', href='{{config.instagramUrl}}')
+            i(class='fa fa-instagram')

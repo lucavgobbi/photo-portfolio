@@ -8,30 +8,34 @@ block content
                     a(class='navbar-brand')
                         img(class='img-logo', src='/images/logo.png')
                     button(type='button', class='navbar-toggle collapsed', data-toggle='collapse', data-target='#navbar-topmenu')
-                        span(class='icon-bar')
-                        span(class='icon-bar')
-                        span(class='icon-bar')
+                        i(class='glyphicon glyphicon-menu-hamburger')
                 div(id='navbar-topmenu', class=['collapse', 'navbar-collapse'])
                     ul(class=['nav', 'navbar-nav'])
                         li
-                            a(ui-sref='home') Home
+                            a(ui-sref='home', data-toggle='collapse', data-target='#navbar-topmenu') Home
                         li
-                            a(ui-sref='portfolio') Portfolio
+                            a(ui-sref='portfolio', data-toggle='collapse', data-target='#navbar-topmenu') Portfolio
                         li
-                            a(ui-sref='albums') Albums
+                            a(ui-sref='albums', data-toggle='collapse', data-target='#navbar-topmenu') Albums
                         li
                             a(ui-sref='privateAlbums') Private Albums
-                    ul(class='nav navbar-nav navbar-right', ng-hide='currentUser == undefined')
                         li
-                            a Hello {{ currentUser.name }}
+                            a(ui-sref='about') About
+                    ul(class='nav navbar-nav navbar-right', ng-hide='currentUser == undefined')
+                        li(class='dropdown')
+                            a(class='dropdown-toggle', data-toggle='dropdown', role='button') Hello {{ currentUser.name }}
+                                span(class='carret')
+                            ul(class='dropdown-menu dropdown-black', role='menu')
+                                li
+                                    a(ui-sref='adminPhotos', data-toggle='collapse', data-target='#navbar-topmenu') Change Password
                         li(class='dropdown', ng-show='currentUser.isAdmin')
                             a(class='dropdown-toggle', data-toggle='dropdown', role='button') Admin
                                 span(class='carret')
-                            ul(class='dropdown-menu', role='menu')
+                            ul(class='dropdown-menu dropdown-black', role='menu')
                                 li
-                                    a(ui-sref='adminPhotos') Manage Photos
+                                    a(ui-sref='adminPhotos', data-toggle='collapse', data-target='#navbar-topmenu') Manage Photos
                                 li
-                                    a(ui-sref='adminAlbums') Manage Albums
+                                    a(ui-sref='adminAlbums', data-toggle='collapse', data-target='#navbar-topmenu') Manage Albums
                                 li
-                                    a(ui-sref='adminUsers') Manage Users
+                                    a(ui-sref='adminUsers', data-toggle='collapse', data-target='#navbar-topmenu') Manage Users
         div(class='center-container', ng-class='transparentNavBar ? "" : "padding-top-50 "', ui-view)

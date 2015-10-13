@@ -14,10 +14,20 @@
     "tests"
   ],
   "dependencies": {
-    "angular-ui-utils": "~0.2.3",
-    "angular-bootstrap": "~0.12.1",
-    "angular-ui-notification": "~0.0.5",
+    "angular": "*",
+    "angular-ui-router": "*",
+    "angular-sanitize": "*",
+    "angular-ui-utils": "*",
+    "angular-bootstrap": "*",
+    "angular-ui-notification": "*",
     "caman": "*",
-    "angular-animate": "~1.4.3"
+    "Hover": "*",
+    "cropper": "*",
+    "angular-animate": "*",
+    "bootstrap": "*",
+    "jquery": "*"
+  },
+  "resolutions": {
+    "angular": "1.4.5"
   }
 }
