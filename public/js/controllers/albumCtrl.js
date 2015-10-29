@@ -95,19 +95,15 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
             cropBoxResizable: true,
             checkImageOrigin: false
         };
+
         function showCropper() {
             $('#cropper-img').cropper($scope.cropperOpt);
         }
 
         $scope.reloadCropper = function () {
+            $('#cropper-img').cropper($scope.cropperOpt);
             $('#cropper-img').cropper('replace', $scope.album.cover.url);
         };
-
-        $scope.selectPhoto = function () {
-            var cropData = $('#cropper-img').cropper('getData');
-            $scope.album.coverDetails = cropData;
-        };
-
         //end of cover selection
 
         //Get users

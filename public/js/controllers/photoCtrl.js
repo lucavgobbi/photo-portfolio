@@ -1,7 +1,7 @@
 /**
  * Created by lucavgobbi on 4/4/15.
  */
-var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap', 'ui-notification']);
+var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap', 'ui-notification', 'lvgCamanMod']);
 
 function openAlbumDialog ($event, $scope, $http) {
     $($event.currentTarget).button('loading');
@@ -63,8 +63,8 @@ photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
     }
 ]);
 
-photoCtrl.controller('AdminViewPhoto', ['$scope', '$rootScope', '$state', '$stateParams', '$http', 'Notification',
-    function ($scope, $rootScope, $state, $stateParams, $http, Notification) {
+photoCtrl.controller('AdminViewPhoto', ['$scope', '$timeout', '$rootScope', '$state', '$stateParams', '$http', 'Notification',
+    function ($scope, $timeout, $rootScope, $state, $stateParams, $http, Notification) {
         $('[data-toggle="tooltip"]').tooltip();
 
         //DatePicker
@@ -76,6 +76,27 @@ photoCtrl.controller('AdminViewPhoto', ['$scope', '$rootScope', '$state', '$stat
             $event.stopPropagation();
 
             $scope.opened = true;
+        };
+
+        $scope.cropperOpt = {
+            aspectRatio: 4 / 4,
+            autoCropArea: 0.95,
+            strict: true,
+            guides: true,
+            responsive: false,
+            highlight: false,
+            cropBoxMovable: true,
+            cropBoxResizable: true,
+            checkImageOrigin: false
+        };
+
+        function showCropper() {
+            $('#cropper-img').cropper($scope.cropperOpt);
+        }
+
+        $scope.reloadCropper = function () {
+            $('#cropper-img').cropper($scope.cropperOpt);
+            $('#cropper-img').cropper('replace', $scope.photo.url);
         };
 
         //Album Dialog open
@@ -104,6 +125,7 @@ photoCtrl.controller('AdminViewPhoto', ['$scope', '$rootScope', '$state', '$stat
 
             //Save Function
             $scope.savePhoto = function () {
+                $scope.photo.thumbDetails = $('#cropper-img').cropper('getData');
                 $http.post('/api/photos?token=' + $scope.currentUser.token, $scope.photo)
                     .success(function (data) {
                         Notification.success('Photo added ;)');
@@ -117,9 +139,15 @@ photoCtrl.controller('AdminViewPhoto', ['$scope', '$rootScope', '$state', '$stat
             $http.get('/api/photos/' + $stateParams.id + '?token=' + $scope.currentUser.token)
                 .success(function (data) {
                     $scope.photo = data;
+                    console.log('Test');
+                    $scope.cropperOpt['built'] = function () {
+                        $('#cropper-img').cropper('setData', data.thumbDetails);
+                    };
+                    $timeout(showCropper);
 
                     //Save function
                     $scope.savePhoto = function () {
+                        $scope.photo.thumbDetails = $('#cropper-img').cropper('getData');
                         $http.put('/api/photos/' + $stateParams.id + '?token=' + $scope.currentUser.token, $scope.photo)
                             .success(function (data) {
                                 Notification.success('Photo updated :)');

@@ -6,6 +6,7 @@ var lvgCaman = angular.module('lvgCamanMod', ['ui.bootstrap', 'ui-notification']
         return {
             link: function ($scope, element, attrs) {
                 $timeout(function () { // You might need this timeout to be sure its run after DOM render.
+                    console.log($("#" + attrs.id))
                     Caman("#" + attrs.id, function () {
 
                         if (attrs.lvgCamanCropX != undefined &&

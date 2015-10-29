@@ -11,7 +11,13 @@ var photoSchema = new Schema({
     dateTaken: Date,
     createdAt: Date,
     updatedAt: Date,
-    albums: [{type: String, ref: 'Album'}]
+    albums: [{type: String, ref: 'Album'}],
+    thumbDetails: {
+        x: Number,
+        y: Number,
+        height: Number,
+        width: Number
+    }
 });
 
 var photo = mongoose.model('Photo', photoSchema);

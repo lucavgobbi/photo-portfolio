@@ -33,7 +33,7 @@ form(name='form', novalidate=)
                     div(class='panel-heading')
                         h3(class='panel-title') Albums
                             div(class='pull-right')
-                                a(class='btn btn-sm btn-default', data-loading-text='Loading Albuns...' ng-click='openAlbumDialog($event)')
+                                a(class='btn btn-sm btn-default', data-loading-text='Loading Albums...' ng-click='openAlbumDialog($event)')
                                     i(class='fa fa-plus')  Add photo to album
                             div(class='clearfix')
                     div(class='panel-body')
@@ -48,9 +48,13 @@ form(name='form', novalidate=)
             div(class='col-md-6')
                 div(class='form-group', ng-class='{ "has-error": form.url.$error.required }')
                     label Photo URL
-                    input(ng-model='photo.url', name='url', class='form-control', placeholder='Photo URL', required)
+                    input(ng-model='photo.url', ng-change='reloadCropper()' name='url', class='form-control', placeholder='Photo URL', required)
                     div(ng-show='form.url.$error.required') URL is required
                     img(ng-src='{{photo.url}}', class='full-width')
+                div(class='form-group')
+                    label Thumbnail
+                    img(id='cropper-img', class='medium-thumbs', ng-src='{{ photo.url }}',
+                    title='{{ photo.title }}')
 
         // Album Dialog Modal
 
