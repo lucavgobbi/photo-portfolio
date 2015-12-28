@@ -1,7 +1,7 @@
 /**
  * Created by lucavgobbi on 3/21/15.
  */
-var ppApp = angular.module('ppApp', ['ui.router', 'ngAnimate', 'ngSanitize', 'homeCtrl', 'albumCtrl',
+var ppApp = angular.module('ppApp', ['ui.router', 'ngSanitize', 'homeCtrl', 'albumCtrl',
     'photoCtrl', 'userCtrl', 'portfolioCtrl', 'loginModalCtrl', 'loginService']);
 
 ppApp.config(['$stateProvider', '$urlRouterProvider',
