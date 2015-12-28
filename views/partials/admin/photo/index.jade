@@ -26,7 +26,7 @@ div(class='container')
                     td
                         input(type='checkbox', class='add-to-album', data-id='{{ photo._id }}')
                     td
-                        img(ng-src='{{ photo.url }}', class='xsmall-thumbs' title='{{ photo.title }}')
+                        img(ng-src='{{ "/thumbs" + photo.url }}', class='xsmall-thumbs' title='{{ photo.title }}')
                     td {{ photo.title }}
                     td {{ photo.shortDescription }}
                     td {{ photo.description }}

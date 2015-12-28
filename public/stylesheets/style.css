@@ -3,6 +3,21 @@ body {
     height: 100%;
 }
 
+.main-text {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 60px;
+}
+
+.main-text span {
+    font-family: 'Cinzel', serif;
+    font-size: 60px;
+}
+
+.sub-text {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 36px;
+}
+
 #wrap {
     min-height: 100%;
     height: 100%;

@@ -8,13 +8,8 @@ div(class='col-md-3 col-sm-12')
 div(class='col-md-9 col-sm-12 padding-top-10')
     div(id='links')
         a(ng-repeat='photo in photos', href='{{ photo.url }}', title='{{ photo.title }}', data-gallery)
-            img(ng-src='{{ photo.url }}', class='medium-thumbs thumbs-padding' title='{{ photo.title }}'
-            id='p{{ photo._id }}',
-            lvg-caman,
-            lvg-caman-crop-x='{{ photo.thumbDetails.x }}',
-            lvg-caman-crop-y='{{ photo.thumbDetails.y }}',
-            lvg-caman-crop-width='{{ photo.thumbDetails.width }}',
-            lvg-caman-crop-height='{{ photo.thumbDetails.height }}')
+            img(ng-src='{{ {{ "/thumbs" + photo.url }} }}', class='medium-thumbs thumbs-padding' title='{{ photo.title }}'
+            id='p{{ photo._id }}')
 
 
     div(class='blueimp-gallery', id='blueimp-gallery', data-use-bootstrap-modal="false")

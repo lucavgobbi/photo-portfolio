@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var Photo = require('../models/photo').Photo;
 var LoginHelper = new (require('../aux/loginHelper'));
+var easyimg = require('easyimage');
 
 router.get('/:id', LoginHelper.validateToken, function (req, res) {
     Photo.findById(req.params.id)
@@ -37,7 +38,14 @@ router.put('/:id', LoginHelper.validateAdminToken, function (req, res) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
         } else {
             Photo.findById(req.params.id, function (err, data) {
-                res.status(200).json(data);
+                cropAndResize(data, function (err, data) {
+                    "use strict";
+                    if (err) {
+                        res.status(500).json({ error: true, type: 'internal_error', details: err });
+                    } else {
+                        res.status(200).json(data);
+                    }
+                });
             });
         }
     })
@@ -97,6 +105,52 @@ router.post('/import', LoginHelper.validateAdminToken, function (req, res) {
         });
     });
 
+});
+
+function cropAndResize (photo, callback) {
+    "use strict";
+    var dst = appConfig.appPath + 'public/thumbs' + photo.url;
+    easyimg.crop({
+        src: appConfig.appPath + 'public' + photo.url,
+        dst: dst,
+        cropwidth: parseInt(photo.thumbDetails.width),
+        cropheight: parseInt(photo.thumbDetails.height),
+        gravity:'NorthWest',
+        x: parseInt(photo.thumbDetails.x),
+        y: parseInt(photo.thumbDetails.y)
+    }).then(function (image) {
+        easyimg.resize({
+            src: dst,
+            dst: dst,
+            width: 250,
+            height: 250
+        }).then(function (image) {
+            callback(null, image);
+        }, function (err) {
+            callback(err);
+        });
+    }, function(err) {
+        callback(err);
+    });
+}
+
+router.post('/generateThumb', function (req, res) {
+    Photo.find()
+        .exec(function (err, data) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else if (!data) {
+                res.status(404).json({error: false, message: 'not_found'});
+            } else {
+                require('async').each(data, cropAndResize, function(err) {
+                    if (err) {
+                        res.status(500).json({error: true, type: 'internal_error', details: err});
+                    } else {
+                        res.status(200).json({ success: true });
+                    }
+                })
+            }
+        });
 });
 
 router.post('/:id/addToAlbum/:albumId', LoginHelper.validateAdminToken, function (req, res) {

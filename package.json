@@ -6,16 +6,21 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "*",
     "body-parser": "*",
     "cookie-parser": "*",
+    "crypto": "*",
     "debug": "~2.1.1",
+    "easyimage": "^2.1.0",
     "express": "*",
     "jade": "*",
-    "morgan": "*",
     "mongodb": "*",
     "mongoose": "*",
-    "underscore": "*",
-    "crypto": "*",
-    "async": "*"
+    "morgan": "*",
+    "underscore": "*"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "should": "^7.1.1"
   }
 }
