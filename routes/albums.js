@@ -4,6 +4,20 @@ var Album = require('../models/album').Album;
 var Photo = require('../models/photo').Photo;
 var LoginHelper = new (require('../aux/loginHelper'));
 
+router.get('/public/:id', function (req, res) {
+    var queryParams = { _id: req.params.id, type: 'public' };
+
+    Album.findOne(queryParams)
+        .populate('cover')
+        .exec(function (err, data) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else {
+                res.status(200).json(data);
+            }
+        });
+});
+
 router.get('/public', function (req, res) {
     Album.find({ type: 'public' })
         .sort({ title: 'asc' })
@@ -42,7 +56,7 @@ router.get('/', LoginHelper.validateToken, function (req, res) {
     if (req.loggedUser.isAdmin) {
         query = Album.find();
     } else {
-        query = Album.find({ owner: req.loggedUser._id });
+        query = Album.find({ owner: req.loggedUser._id, type: 'private' });
     }
 
     query.sort({ title: 'asc' })
@@ -57,6 +71,17 @@ router.get('/', LoginHelper.validateToken, function (req, res) {
 });
 
 router.get('/:id/photos', LoginHelper.validateToken, function (req, res) {
+    //TODO: add owner verification
+    Photo.find({albums: req.params.id }, function (err, data) {
+        if (err) {
+            res.status(500).json({error: true, type: 'internal_error', details: err});
+        } else {
+            res.status(200).json(data);
+        }
+    });
+});
+
+router.get('/public/:id/photos', function (req, res) {
     //TODO: add owner verification
     Photo.find({albums: req.params.id }, function (err, data) {
         if (err) {

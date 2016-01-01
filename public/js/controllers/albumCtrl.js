@@ -2,9 +2,9 @@
  * Created by lucavgobbi on 3/21/15.
  */
 
-var albumCtrl = angular.module('albumCtrl', ['ui.bootstrap', 'ui-notification', 'lvgCamanMod']);
+var albumCtrl = angular.module('albumCtrl', ['ui.bootstrap', 'ui-notification']);
 
-albumCtrl.controller('ListAlbums', ['$scope','$http',
+albumCtrl.controller('ListPublicAlbums', ['$scope','$http',
     function ($scope, $http) {
         $http.get('/api/albums/public')
             .success(function (data) {
@@ -21,7 +21,7 @@ albumCtrl.controller('ListAlbums', ['$scope','$http',
     }
 ]);
 
-albumCtrl.controller('ListPrivateAlbums', ['$scope','$http',
+albumCtrl.controller('ListAlbums', ['$scope','$http',
     function ($scope, $http) {
         $http.get('/api/albums?token=' + $scope.currentUser.token)
             .success(function (data) {
@@ -35,6 +35,20 @@ albumCtrl.controller('ListPrivateAlbums', ['$scope','$http',
                     }
                 });
             })
+    }
+]);
+
+albumCtrl.controller('ViewPublicAlbum', ['$scope', '$http', '$stateParams',
+    function ($scope, $http, $stateParams) {
+        $http.get('/api/albums/public/' + $stateParams.id)
+            .success(function (data) {
+                $scope.album = data;
+            });
+
+        $http.get('/api/albums/public/' + $stateParams.id + '/photos')
+            .success(function (data) {
+                $scope.photos = data;
+            });
     }
 ]);
 

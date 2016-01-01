@@ -1,7 +1,7 @@
 /**
  * Created by lucavgobbi on 4/4/15.
  */
-var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap', 'ui-notification', 'lvgCamanMod']);
+var photoCtrl = angular.module('photoCtrl', ['ui.bootstrap', 'ui-notification']);
 
 function openAlbumDialog ($event, $scope, $http) {
     $($event.currentTarget).button('loading');

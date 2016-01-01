@@ -27,18 +27,23 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: '/portfolio/view',
                 controller: 'ViewPortfolio'
             })
+            .state('publicAlbums', {
+                url: '/albums/public',
+                templateUrl: '/album/indexPublic',
+                controller: 'ListPublicAlbums'
+            })
             .state('albums', {
                 url: '/albums',
                 templateUrl: '/album/index',
-                controller: 'ListAlbums'
-            })
-            .state('privateAlbums', {
-                url: '/privateAlbums',
-                templateUrl: '/album/index',
-                controller: 'ListPrivateAlbums',
+                controller: 'ListAlbums',
                 data: {
                     requireLogin: true
                 }
+            })
+            .state('publicAlbumDetails', {
+                url: '/album/public/:id',
+                templateUrl: '/album/viewPublic',
+                controller: 'ViewPublicAlbum'
             })
             .state('albumDetails', {
                 url: '/album/:id',

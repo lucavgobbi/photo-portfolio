@@ -2,7 +2,7 @@
  * Created by lucavgobbi on 7/18/15.
  */
 
-var portfolioCtrl = angular.module('portfolioCtrl', ['ui.bootstrap', 'lvgCamanMod']);
+var portfolioCtrl = angular.module('portfolioCtrl', ['ui.bootstrap']);
 
 portfolioCtrl.controller('ListPortfolios', ['$scope','$http',
     function ($scope, $http) {

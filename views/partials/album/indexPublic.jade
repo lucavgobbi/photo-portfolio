@@ -3,7 +3,7 @@
 
 ul(class='photo-grid')
     li(ng-repeat='album in albums')
-        a(ui-sref='albumDetails({id: album.name})')
+        a(ui-sref='publicAlbumDetails({id: album.name})')
             figure
                 img(ng-src='{{ "/thumbs" + album.cover }}', class='medium-thumbs thumbs-padding')
                 figcaption

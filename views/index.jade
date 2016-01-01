@@ -16,11 +16,14 @@ block content
                         li
                             a(ui-sref='portfolio', data-toggle='collapse', data-target='#navbar-topmenu') Portfolio
                         li
-                            a(ui-sref='albums', data-toggle='collapse', data-target='#navbar-topmenu') Albums
-                        li
-                            a(ui-sref='privateAlbums') Private Albums
+                            a(ui-sref='publicAlbums', data-toggle='collapse', data-target='#navbar-topmenu') Albums
+                        li(ng-hide='currentUser == undefined')
+                            a(ui-sref='albums') Private Albums
                         li
                             a(ui-sref='about') About
+                    ul(class='nav navbar-nav navbar-right', ng-hide='currentUser != undefined')
+                        li
+                            a(ui-sref='albums') Login
                     ul(class='nav navbar-nav navbar-right', ng-hide='currentUser == undefined')
                         li(class='dropdown')
                             a(class='dropdown-toggle', data-toggle='dropdown', role='button') Hello {{ currentUser.name }}
