@@ -17,6 +17,11 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
                     transparentNavBar: true
                 }
             })
+            .state('about', {
+                url: '/about',
+                templateUrl: '/home/about',
+                controller: 'ShowAbout'
+            })
             .state('portfolio', {
                 url: '/portfolio',
                 templateUrl: '/portfolio/index',

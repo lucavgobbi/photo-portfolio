@@ -7,7 +7,11 @@ var homeCtrl = angular.module('homeCtrl', []);
 homeCtrl.controller('ShowHome', ['$scope', 'websiteConfig',
     function ($scope, websiteConfig) {
         $scope.config = websiteConfig;
-        console.log($scope.config);
     }
 ]);
 
+homeCtrl.controller('ShowAbout', ['$scope', 'websiteConfig',
+    function ($scope, websiteConfig) {
+        $scope.config = websiteConfig;
+    }
+]);
