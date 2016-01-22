@@ -108,7 +108,11 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             });
     }]);
 
-ppApp.run(['$rootScope', '$state', 'loginModal', function ($rootScope, $state, loginModal) {
+ppApp.run(['$window', '$location', '$rootScope', '$state', 'loginModal', 'websiteConfig', function ($window, $location, $rootScope, $state, loginModal, websiteConfig) {
+    $window.ga('create', websiteConfig.ga, 'auto');
+    $rootScope.$on('$stateChangeSuccess', function (event) {
+        $window.ga('send', 'pageview', $location.path());
+    });
     $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams) {
             var requireLogin = false;

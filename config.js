@@ -10,5 +10,5 @@ module.exports = {
         password: 'password',
         databaseName: 'photo-portfolio'
     },
-    appPath: '/Users/lucavgobbi/Development/photo-portfolio/',
+    appPath: '/Users/lucavgobbi/Development/photo-portfolio/'
 };
