@@ -1,7 +1,7 @@
 'use strict';
 angular.module('ppApp')
     .constant('websiteConfig', {
-        'homeHTML': '<div class="main-title">B<span>runa</span> R<span>ico</span></div>',
+        'homeHTML': '<img class="home-img" src="/images/home.png" />',
         'twitterUrl': 'http://twitter.com/brunarico_',
         'facebookUrl': 'http://facebook.com/brunaricophotography',
         'instagramUrl': 'https://www.instagram.com/brunarico_',
