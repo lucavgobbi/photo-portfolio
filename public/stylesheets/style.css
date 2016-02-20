@@ -4,11 +4,16 @@ body {
     font-family: "Fira Sans","Helvetica Neue",Helvetica,Arial,sans-serif; !important;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p, span, div {
     font-family: "Fira Sans","Helvetica Neue",Helvetica,Arial,sans-serif; !important;
 }
-p, div {
-    font-family: "Fira Sans","Helvetica Neue",Helvetica,Arial,sans-serif; !important;
+
+.small-text {
+    font-size: 14px;
+}
+
+span.small-text {
+    vertical-align: middle;
 }
 
 .main-title {

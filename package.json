@@ -17,6 +17,7 @@
     "mongodb": "*",
     "mongoose": "*",
     "morgan": "*",
+    "nodemailer": "^2.2.1",
     "underscore": "*"
   },
   "devDependencies": {

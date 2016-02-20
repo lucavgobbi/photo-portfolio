@@ -10,5 +10,14 @@ module.exports = {
         password: 'password',
         databaseName: 'photo-portfolio'
     },
+    email: {
+        host: 'smtp.zoho.com',
+        port: 465,
+        secure: true, // use SSL
+        auth: {
+            user: '',
+            pass: ''
+        }
+    },
     appPath: '/Users/lucavgobbi/Development/photo-portfolio/'
 };

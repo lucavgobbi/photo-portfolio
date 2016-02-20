@@ -1,0 +1,50 @@
+//
+   Created by lucavgobbi on 2016-02-20.
+
+div(class='row')
+    div(class='col-md-12')
+        div(class='text-center')
+            h3
+                strong HOW TO FIND ME
+            //img(src='/images/contact.jpg' style='width: 100%; max-Width: 600px')
+div(class='row' style='padding: 10px 10px 10px 10px;')
+    div(class='col-md-12')
+        div(class='text-center')
+            div(style='max-Width: 600px; margin-left: auto; margin-right: auto; text-align: justify; text-justify: inter-word;')
+                br
+                p I’m looking forward to be your  photographer in your special day!
+                p You can contact me just filling this form:
+                div(ng-show='successMessage != undefined' class="alert alert-success") {{ successMessage }}
+                form(id="contactForm" data-toggle="validator" role="form")
+                    div(class="form-group")
+                        label(class="control-label") Name
+                        input(type="text" name="name" ng-model="name" class="form-control" required="required" data-error="Please enter your name")
+                        div(class="help-block with-errors")
+                    div(class="form-group")
+                        label(class="control-label") Email
+                        input(type="email" name="email" ng-model="email" class="form-control" required="required" data-error="Please enter your email")
+                        div(class="help-block with-errors")
+                    div(class="form-group")
+                        label(class="control-label") Message
+                        textarea(name="message" rows='6' ng-model="message" class="form-control" required="required" data-error="Please enter your message")
+                        div(class="help-block with-errors")
+                    div(class="form-group")
+                        button(type="submit" ng-click="submitContact($event)" class="btn btn-primary") Send
+                p If you prefer, you can send me a direct e-mail to &nbsp;
+                    a(href='contact@brunarico.com') contact@brunarico.com
+                p or
+                p If you are a social network person, you can find me on:
+                a(class='social-network-icon-black', target='_blank', ng-show='config.twitterUrl', href='{{config.twitterUrl}}')
+                    i(class='fa fa-twitter-square')
+                    span(class='small-text') &nbsp;Twitter
+                br
+                a(class='social-network-icon-black',target='_blank', ng-show='config.facebookUrl', href='{{config.facebookUrl}}')
+                    i(class='fa fa-facebook-square')
+                    span(class='small-text') &nbsp;Facebook
+                br
+                a(class='social-network-icon-black',target='_blank', ng-show='config.instagramUrl', href='{{config.instagramUrl}}')
+                    i(class='fa fa-instagram')
+                    span(class='small-text') &nbsp;Instagram
+                br
+                div(class='row' style='padding: 10px 10px 10px 10px;')
+                    div(style='float:right;') See you soon!
