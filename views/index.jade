@@ -5,7 +5,7 @@ block content
         nav(class='navbar navbar-black navbar-fixed-top', ng-class='transparentNavBar ? "" : "top-nav-collapse"')
             div(class='container-fluid')
                 div(class='navbar-header')
-                    a(class='navbar-brand')
+                    a(class='navbar-brand' href='/')
                         img(class='img-logo', src='/images/logo.png')
                     button(type='button', class='navbar-toggle collapsed', data-toggle='collapse', data-target='#navbar-topmenu')
                         i(class='glyphicon glyphicon-menu-hamburger')
@@ -23,7 +23,7 @@ block content
                             a(ui-sref='about') About Me
                     ul(class='nav navbar-nav navbar-right', ng-hide='currentUser != undefined')
                         li
-                            a(ui-sref='albums') Login
+                            //a(ui-sref='albums') Login
                     ul(class='nav navbar-nav navbar-right', ng-hide='currentUser == undefined')
                         li(class='dropdown')
                             a(class='dropdown-toggle', data-toggle='dropdown', role='button') Hello {{ currentUser.name }}

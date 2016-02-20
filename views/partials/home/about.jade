@@ -1,4 +1,27 @@
 //
    Created by lucavgobbi on 2016-01-02.
 
-span This is me!
+div(class='row')
+    div(class='col-md-12')
+        div(class='text-center')
+            h3
+                strong ABOUT BRUNA RICO
+            img(src='/images/about.jpg' style='width: 100%; max-Width: 600px')
+div(class='row' style='padding: 10px 10px 10px 10px;')
+    div(class='col-md-12')
+        div(class='text-center')
+            div(style='max-Width: 600px; margin-left: auto; margin-right: auto; text-align: justify; text-justify: inter-word;')
+                br
+                p Hi! It’s a pleasure to share a little bit of my story with you!
+                p During my university life in Brazil I travelled to Vancouver and was there that I bought my first DSLR camera. I was almost finishing my chemistry studies when I started to play with that. Years later after my graduation, I decided to go deep and beyond with my camera: I started to study photography by myself after my job; then I realized what I could do through the lens and I also learnt that photography is not about the camera or how many lenses you have, is all about the look of whom is recording the moment.
+                p In 2015 was a challenge year for me because I decided to quit my chemistry job and leave all my family and friends to go further with photography. I came to Toronto to learn, share and live photography full time.
+                p All my photographs I make with love, with passion. I completely involve myself when I am shooting and the result is a collection of amazing images that will live for generations.
+                br
+                div(class='row' style='padding: 10px 10px 10px 10px;')
+                    div(style='float:right;')
+                        a(class='social-network-icon-black', target='_blank', ng-show='config.twitterUrl', href='{{config.twitterUrl}}')
+                            i(class='fa fa-twitter-square')
+                        a(class='social-network-icon-black',target='_blank', ng-show='config.facebookUrl', href='{{config.facebookUrl}}')
+                            i(class='fa fa-facebook-square')
+                        a(class='social-network-icon-black',target='_blank', ng-show='config.instagramUrl', href='{{config.instagramUrl}}')
+                            i(class='fa fa-instagram')

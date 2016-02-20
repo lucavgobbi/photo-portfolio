@@ -159,6 +159,17 @@ p, div {
     color: #000;
 }
 
+.social-network-icon-black {
+    padding-left: 5px;
+    font-size:30px;
+    color: #000;
+}
+
+.social-network-icon-black :hover {
+    color: #f0f0f0;
+}
+
+
 .home-main h1 {
     font-size: 64px;
     font-family: "Fira Sans","Helvetica Neue",Helvetica,Arial,sans-serif;

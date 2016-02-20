@@ -1,11 +1,12 @@
 //
    Created by lucavgobbi on 7/5/15.
 
-div(class='col-md-3 col-sm-12')
-    h3 {{ portfolio.title }}
-    h4 {{ portfolio.shortDescription }}
-    p {{ portfolio.description }}
-div(class='col-md-9 col-sm-12 padding-top-10')
+div(class='hidden-xs hidden-sm col-md-2 col-lg-2')
+    div(class='padding-top-30 text-right')
+        img(src='/images/logo-lg.png' class='img-logo-lg')
+        p(class='padding-top-10 ' ng-repeat='portfolio in portfolios')
+            a(class='side-link' ui-sref='portfolioDetails({id: portfolio.name})') {{ portfolio.title }}
+div(class='col-xs-12 col-sm-12 col-md-10 col-lg-10')
     div(id='links')
         a(ng-repeat='photo in photos', href='{{ photo.url }}', title='{{ photo.title }}', data-gallery)
             img(ng-src='{{ "/thumbs" + photo.url }}', class='medium-thumbs thumbs-padding' title='{{ photo.title }}'

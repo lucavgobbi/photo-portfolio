@@ -4,9 +4,9 @@
 div(class='home-main')
     div(class='padding-top-50', ng-bind-html='config.homeHTML')
     span
-        a(class='social-network-icon', ng-show='config.twitterUrl', href='{{config.twitterUrl}}')
+        a(class='social-network-icon', ng-show='config.twitterUrl',target='_blank', href='{{config.twitterUrl}}')
             i(class='fa fa-twitter-square')
-        a(class='social-network-icon', ng-show='config.facebookUrl', href='{{config.facebookUrl}}')
+        a(class='social-network-icon', ng-show='config.facebookUrl',target='_blank', href='{{config.facebookUrl}}')
             i(class='fa fa-facebook-square')
-        a(class='social-network-icon', ng-show='config.instagramUrl', href='{{config.instagramUrl}}')
+        a(class='social-network-icon', ng-show='config.instagramUrl',target='_blank', href='{{config.instagramUrl}}')
             i(class='fa fa-instagram')

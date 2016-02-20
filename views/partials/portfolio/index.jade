@@ -4,7 +4,7 @@ div(class='hidden-xs hidden-sm col-md-2 col-lg-2')
     div(class='padding-top-30 text-right')
         img(src='/images/logo-lg.png' class='img-logo-lg')
         p(class='padding-top-10 ' ng-repeat='portfolio in portfolios')
-            a(class='side-link' ui-sref='portfolioDetails({id: portfolio.name})') {{ portfolio.name }}
+            a(class='side-link' ui-sref='portfolioDetails({id: portfolio.name})') {{ portfolio.title }}
 div(class='col-xs-12 col-sm-12 col-md-10 col-lg-10')
     ul(class='photo-grid')
         li(ng-repeat='portfolio in portfolios')
