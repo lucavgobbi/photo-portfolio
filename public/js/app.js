@@ -4,14 +4,14 @@
 var ppApp = angular.module('ppApp', ['ui.router', 'ngSanitize', 'homeCtrl', 'albumCtrl',
     'photoCtrl', 'userCtrl', 'portfolioCtrl', 'loginModalCtrl', 'loginService']);
 
-ppApp.config(['$stateProvider', '$urlRouterProvider',
-    function ($stateProvider, $urlRouterProvider) {
+ppApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider',
+    function ($locationProvider, $stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: '/home/index',
+                templateUrl: '/views/home/index',
                 controller: 'ShowHome',
                 data: {
                     transparentNavBar: true
@@ -19,32 +19,32 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('about', {
                 url: '/about',
-                templateUrl: '/home/about',
+                templateUrl: '/views/home/about',
                 controller: 'ShowAbout'
             })
             .state('contact', {
                 url: '/contact',
-                templateUrl: '/home/contact',
+                templateUrl: '/views/home/contact',
                 controller: 'ShowContact'
             })
             .state('portfolio', {
                 url: '/portfolio',
-                templateUrl: '/portfolio/index',
+                templateUrl: '/views/portfolio/index',
                 controller: 'ListPortfolios'
             })
             .state('portfolioDetails', {
                 url: '/portfolio/:id',
-                templateUrl: '/portfolio/view',
+                templateUrl: '/views/portfolio/view',
                 controller: 'ViewPortfolio'
             })
             .state('publicAlbums', {
                 url: '/albums/public',
-                templateUrl: '/album/indexPublic',
+                templateUrl: '/views/album/indexPublic',
                 controller: 'ListPublicAlbums'
             })
             .state('albums', {
                 url: '/albums',
-                templateUrl: '/album/index',
+                templateUrl: '/views/album/index',
                 controller: 'ListAlbums',
                 data: {
                     requireLogin: true
@@ -52,12 +52,12 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('publicAlbumDetails', {
                 url: '/album/public/:id',
-                templateUrl: '/album/viewPublic',
+                templateUrl: '/views/album/viewPublic',
                 controller: 'ViewPublicAlbum'
             })
             .state('albumDetails', {
                 url: '/album/:id',
-                templateUrl: '/album/view',
+                templateUrl: '/views/album/view',
                 controller: 'ViewAlbum',
                 data: {
                     requireLogin: true
@@ -65,7 +65,7 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('adminAlbums', {
                 url: '/admin/albums',
-                templateUrl: '/admin/album/index',
+                templateUrl: '/views/admin/album/index',
                 controller: 'AdminListAlbums',
                 data: {
                     requireLogin: true
@@ -73,7 +73,7 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('adminAlbumDetails', {
                 url: '/admin/album/:id',
-                templateUrl: '/admin/album/view',
+                templateUrl: '/views/admin/album/view',
                 controller: 'AdminViewAlbum',
                 data: {
                     requireLogin: true
@@ -81,7 +81,7 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('adminPhotos', {
                 url: '/admin/photos',
-                templateUrl: '/admin/photo/index',
+                templateUrl: '/views/admin/photo/index',
                 controller: 'AdminListPhotos',
                 data: {
                     requireLogin: true
@@ -89,7 +89,7 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('adminPhotoDetails', {
                 url: '/admin/photo/:id',
-                templateUrl: '/admin/photo/view',
+                templateUrl: '/views/admin/photo/view',
                 controller: 'AdminViewPhoto',
                 data: {
                     requireLogin: true
@@ -97,7 +97,7 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('adminUsers', {
                 url: '/admin/users',
-                templateUrl: '/admin/user/index',
+                templateUrl: '/views/admin/user/index',
                 controller: 'AdminListUsers',
                 data: {
                     requireLogin: true
@@ -105,12 +105,16 @@ ppApp.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('adminUserDetails', {
                 url: '/admin/user/:id',
-                templateUrl: '/admin/user/view',
+                templateUrl: '/views/admin/user/view',
                 controller: 'AdminViewUser',
                 data: {
                     requireLogin: true
                 }
             });
+
+        $locationProvider.html5Mode({
+            enabled: true
+        });
     }]);
 
 ppApp.run(['$window', '$location', '$rootScope', '$state', 'loginModal', 'websiteConfig', function ($window, $location, $rootScope, $state, loginModal, websiteConfig) {

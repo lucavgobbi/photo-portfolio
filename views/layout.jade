@@ -8,6 +8,7 @@ html(lang='en', ng-app="ppApp")
         title='Bruna Rico - Portrait & Wedding Photographer'
         meta(name='description', content='Professional photography services on GTA, specialized in Portraits and Wedding Photography')
         meta(name='keywords', content='Bruna Rico Photography toronto canada GTA wedding portrait')
+        base(href="/")
         link(rel='stylesheet', href='/stylesheets/style.css')
         link(rel='stylesheet', href='/stylesheets/animate.css')
         link(rel='stylesheet', href='/stylesheets/lib/bootstrap/bootstrap.min.css')
@@ -23,6 +24,18 @@ html(lang='en', ng-app="ppApp")
     body
         block content
 //libs
+script.
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 script(src='/js/lib/jquery/jquery.min.js')
 script(src='/js/lib/angular/angular.min.js')
 script(src='/js/lib/angular-sanitize/angular-sanitize.min.js')
@@ -32,12 +45,11 @@ script(src='/js/lib/angular-ui-utils/ui-utils.min.js')
 script(src='/js/lib/angular-bootstrap/ui-bootstrap-tpls.min.js')
 script(src='/js/lib/bootstrap/bootstrap.min.js')
 script(src='http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js')
-script(src='/js/lib/bootstrap-image-gallery/bootstrap-image-gallery.min.js')
+script(src='/js/lib/bootstrap-image-gallery/bootstrap-image-gallery.js')
 script(src='/js/lib/angular-ui-notification/angular-ui-notification.min.js')
 script(src='/js/lib/underscore/underscore-min.js')
 script(src='/js/lib/cropper/cropper.min.js')
 script(src='/js/lib/bootstrap-validator/validator.min.js')
-script(src='/js/ga.js')
 
 //app
 script(src='/js/app.js')

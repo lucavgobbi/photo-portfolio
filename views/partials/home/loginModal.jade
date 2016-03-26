@@ -9,5 +9,6 @@ form(ng-submit='submit($event)')
         div(class='form-group')
            label(for='password') Password
            input(type='password', ng-model='password', class='form-control', placeholder='Enter your password', id='password')
+        div(ng-show='hasError', class='alert alert-danger') Incorrect user or password
     div(class='modal-footer')
-        button(class='btn btn-success', data-loading-text='Logging in...', ) Log in
+        button(class='btn btn-success', data-loading-text='<i class="fa fa-spinner fa-spin"></i>', ) Log in

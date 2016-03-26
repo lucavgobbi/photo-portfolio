@@ -40,6 +40,11 @@ albumCtrl.controller('ListAlbums', ['$scope','$http',
 
 albumCtrl.controller('ViewPublicAlbum', ['$scope', '$http', '$stateParams',
     function ($scope, $http, $stateParams) {
+        $scope.avoidClick = function(e) {
+            e.preventDefault();
+            return false;
+        };
+
         $http.get('/api/albums/public/' + $stateParams.id)
             .success(function (data) {
                 $scope.album = data;
@@ -54,6 +59,11 @@ albumCtrl.controller('ViewPublicAlbum', ['$scope', '$http', '$stateParams',
 
 albumCtrl.controller('ViewAlbum', ['$scope', '$http', '$stateParams',
     function ($scope, $http, $stateParams) {
+        $scope.avoidClick = function(e) {
+            e.preventDefault();
+            return false;
+        };
+        
         $http.get('/api/albums/' + $stateParams.id + '?token=' + $scope.currentUser.token)
             .success(function (data) {
                 $scope.album = data;

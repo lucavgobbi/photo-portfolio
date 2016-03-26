@@ -7,7 +7,7 @@ div(class='col-md-3 col-sm-12')
     p {{ album.description }}
 div(class='col-md-9 col-sm-12 padding-top-10')
     div(id='links')
-        a(ng-repeat='photo in photos', href='{{ photo.url }}', title='{{ photo.title }}', data-gallery)
+        a(ng-repeat='photo in photos', ng-click='avoidClick($event)', href='{{ photo.url }}', title='{{ photo.title }}', data-gallery)
             img(ng-src='{{ "/thumbs" + photo.url }}', class='medium-thumbs thumbs-padding' title='{{ photo.title }}'
             id='p{{ photo._id }}')
 

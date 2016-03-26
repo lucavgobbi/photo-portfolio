@@ -23,6 +23,11 @@ portfolioCtrl.controller('ListPortfolios', ['$scope','$http',
 
 portfolioCtrl.controller('ViewPortfolio', ['$scope', '$http', '$stateParams',
     function ($scope, $http, $stateParams) {
+        $scope.avoidClick = function(e) {
+            e.preventDefault();
+            return false;
+        };
+        
         $http.get('/api/portfolios')
             .success(function (data) {
                 $scope.portfolios = data.map(function (item) {

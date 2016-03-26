@@ -12,7 +12,7 @@ loginService.factory('loginModal', ['$modal', '$rootScope',
 
         return function() {
             var instance = $modal.open({
-                templateUrl: '/home/loginModal',
+                templateUrl: '/views/home/loginModal',
                 controller: 'DoLogin',
                 controllerAs: 'DoLogin',
                 size: 'sm'
