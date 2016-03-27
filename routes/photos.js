@@ -142,7 +142,7 @@ router.post('/generateThumb', function (req, res) {
             } else if (!data) {
                 res.status(404).json({error: false, message: 'not_found'});
             } else {
-                require('async').each(data, cropAndResize, function(err) {
+                require('async').eachSeries(data, cropAndResize, function(err) {
                     if (err) {
                         res.status(500).json({error: true, type: 'internal_error', details: err});
                     } else {
