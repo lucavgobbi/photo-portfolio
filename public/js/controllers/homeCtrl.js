@@ -38,3 +38,19 @@ homeCtrl.controller('ShowContact', ['$scope', 'websiteConfig', '$http',
         }
     }
 ]);
+
+homeCtrl.controller('ChangePassword', ['$scope', '$http', '$state', 'Notification',
+    function ($scope, $http, $state, Notification) {
+        $('form').validator();
+
+        $scope.changePassword = function ($event) {
+            //$($event.currentTarget).button('loading');
+            $http.put('/api/users/changePassword?token=' + $scope.currentUser.token, { password: $scope.password })
+                .success(function (data) {
+                    Notification.success('Password changed ;)');
+                    $($event.currentTarget).button('reset');
+                    $state.go('albums');
+                });
+        }
+    }
+]);

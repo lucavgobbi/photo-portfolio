@@ -18,8 +18,8 @@ form(name='form', novalidate=)
                  input(ng-model='user.name', name='name', class='form-control', placeholder='Name', required,
                  data-toggle='tooltip' data-placement='top', title='User name, used for greetings')
                  div(ng-show='form.name.$error.required') Name is required
-             div(class='form-group', ng-class='{ "has-error": form.name.$error.required }')
-                 label Name
+             div(class='form-group', ng-class='{ "has-error": form.password.$error.required }')
+                 label Password
                  input(ng-model='user.password', name='password', class='form-control', placeholder='Password', required,
                  data-toggle='tooltip' data-placement='top', title='User password, make it hard to guess ;)')
                  div(ng-show='form.password.$error.required') Password is required

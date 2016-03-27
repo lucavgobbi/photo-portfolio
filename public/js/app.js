@@ -63,6 +63,14 @@ ppApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider',
                     requireLogin: true
                 }
             })
+            .state('changePassword', {
+                url: '/changePassword',
+                templateUrl: '/views/home/changePassword',
+                controller: 'ChangePassword',
+                data: {
+                    requireLogin: true
+                }
+            })
             .state('adminAlbums', {
                 url: '/admin/albums',
                 templateUrl: '/views/admin/album/index',

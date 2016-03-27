@@ -6,6 +6,27 @@ var router = express.Router();
 var User = require('../models/user').User;
 var LoginHelper = new (require('../aux/loginHelper'));
 
+router.put('/changePassword', LoginHelper.validateToken, function (req, res) {
+    User.findById(req.loggedUser.id)
+        .exec(function (err, user) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else if (!user) {
+                res.status(404).json({error: false, message: 'not_found'});
+            }  else {
+                user.password = require('crypto').createHash('sha1').update(req.body.password).digest('hex');
+                user.save(function (err, savedData) {
+                    if (err) {
+                        res.status(500).json({error: true, type: 'internal_error', details: err});
+                    } else {
+                        savedData.password = '';
+                        res.status(200).json(savedData);
+                    }
+                })
+            }
+        });
+});
+
 router.get('/:id', LoginHelper.validateAdminToken, function (req, res) {
     User.findById(req.params.id)
         .select({ _id: 1, login: 1, name: 1, isAdmin: 1 })
@@ -44,6 +65,29 @@ router.post('/', LoginHelper.validateAdminToken, function (req, res) {
             res.status(201).json(savedData);
         }
     });
+});
+
+router.put('/:id', LoginHelper.validateAdminToken, function (req, res) {
+    User.findById(req.params.id)
+        .exec(function (err, user) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else if (!user) {
+                res.status(404).json({error: false, message: 'not_found'});
+            }  else {
+                user.login = req.body.login;
+                user.name = req.body.name;
+                user.password = require('crypto').createHash('sha1').update(req.body.password).digest('hex');
+                user.save(function (err, savedData) {
+                    if (err) {
+                        res.status(500).json({error: true, type: 'internal_error', details: err});
+                    } else {
+                        savedData.password = '';
+                        res.status(200).json(savedData);
+                    }
+                })
+            }
+        });
 });
 
 router.post('/login', function (req, res) {

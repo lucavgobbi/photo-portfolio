@@ -41,7 +41,7 @@ userCtrl.controller('AdminViewUser', ['$scope', '$http', '$state', '$stateParams
                         $http.put('/api/users/' + $stateParams.id + '?token=' + $scope.currentUser.token, $scope.user)
                             .success(function (data) {
                                 Notification.success('User saved ;)');
-                                $state.go('adminUser');
+                                $state.go('adminUsers');
                             });
                     }
                 });
