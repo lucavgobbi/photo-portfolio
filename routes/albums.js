@@ -85,7 +85,8 @@ router.get('/', LoginHelper.validateToken, function (req, res) {
 });
 
 router.get('/:id/photos', LoginHelper.validateToken, function (req, res) {
-    Album.findById(req.params.id)
+    var queryParams = { _id: req.params.id, type: 'private' };
+    Album.findById(queryParams)
         .select({ photos: 1 })
         .populate('photos.photo')
         .exec(function (err, albums) {
@@ -123,8 +124,8 @@ router.get('/:id/listPhotos', LoginHelper.validateToken, function (req, res) {
 });
 
 router.get('/public/:id/photos', function (req, res) {
-    //TODO: add owner verification
-    Album.findById(req.params.id)
+    var queryParams = { _id: req.params.id, type: 'public' };
+    Album.findById(queryParams)
         .select({ photos: 1 })
         .populate('photos.photo')
         .exec(function (err, albums) {

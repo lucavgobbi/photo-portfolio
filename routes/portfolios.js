@@ -35,8 +35,8 @@ router.get('/:id', function (req, res) {
 });
 
 router.get('/:id/photos', function (req, res) {
-    //TODO: add owner verification
-    Album.findById(req.params.id)
+    var queryParams = { _id: req.params.id, type: 'portfolio' };
+    Album.findOne(queryParams)
         .select({ photos: 1 })
         .populate('photos.photo')
         .exec(function (err, albums) {
