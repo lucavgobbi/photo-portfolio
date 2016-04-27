@@ -12,6 +12,10 @@ var albumSchema = new Schema({
     dateCreated: Date,
     createdAt: Date,
     updatedAt: Date,
+    photos: [{
+        photo: { type: Schema.Types.ObjectId, ref: 'Photo'},
+        order: Number
+    }],
     cover: { type: Schema.Types.ObjectId, ref: 'Photo'},
     coverDetails: {
         x: Number,

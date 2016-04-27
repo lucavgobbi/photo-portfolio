@@ -3,7 +3,21 @@ var router = express.Router();
 var Album = require('../models/album').Album;
 var Photo = require('../models/photo').Photo;
 var LoginHelper = new (require('../aux/loginHelper'));
-
+var _ = require('underscore');
+/*
+router.get('/migrate', function (req, res) {
+    "use strict";
+    Album.find({}, (err, albums) => {
+        albums.forEach((album) => {
+            Photo.find({albums: album._id }, (err, photos) => {
+                let order = 0;
+                album.photos = photos.map((photo) => ({ photo: photo._id, order: order++ }));
+                album.save();
+            });
+        })
+    })
+});
+*/
 router.get('/public/:id', function (req, res) {
     var queryParams = { _id: req.params.id, type: 'public' };
 
@@ -71,25 +85,61 @@ router.get('/', LoginHelper.validateToken, function (req, res) {
 });
 
 router.get('/:id/photos', LoginHelper.validateToken, function (req, res) {
-    //TODO: add owner verification
-    Photo.find({albums: req.params.id }, function (err, data) {
-        if (err) {
-            res.status(500).json({error: true, type: 'internal_error', details: err});
-        } else {
-            res.status(200).json(data);
-        }
-    });
+    Album.findById(req.params.id)
+        .select({ photos: 1 })
+        .populate('photos.photo')
+        .exec(function (err, albums) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else {
+                const photos = albums.photos.map((i) => ({
+                    photoId: i.photo._id,
+                    order: i.order,
+                    title: i.photo.title,
+                    url: i.photo.url
+                }));
+                res.status(200).json(_.sortBy(photos, 'order'));
+            }
+        });
+});
+
+router.get('/:id/listPhotos', LoginHelper.validateToken, function (req, res) {
+    Album.findById(req.params.id)
+        .select({ photos: 1 })
+        .populate('photos.photo')
+        .exec(function (err, albums) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else {
+                const photos = albums.photos.map((i) => ({
+                    photoId: i.photo._id,
+                    order: i.order,
+                    title: i.photo.title,
+                    url: i.photo.url
+                }));
+                res.status(200).json(_.sortBy(photos, 'order'));
+            }
+        });
 });
 
 router.get('/public/:id/photos', function (req, res) {
     //TODO: add owner verification
-    Photo.find({albums: req.params.id }, function (err, data) {
-        if (err) {
-            res.status(500).json({error: true, type: 'internal_error', details: err});
-        } else {
-            res.status(200).json(data);
-        }
-    });
+    Album.findById(req.params.id)
+        .select({ photos: 1 })
+        .populate('photos.photo')
+        .exec(function (err, albums) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else {
+                const photos = albums.photos.map((i) => ({
+                    photoId: i.photo._id,
+                    order: i.order,
+                    title: i.photo.title,
+                    url: i.photo.url
+                }));
+                res.status(200).json(_.sortBy(photos, 'order'));
+            }
+        });
 });
 
 router.put('/:id', LoginHelper.validateAdminToken, function (req, res) {
@@ -103,7 +153,7 @@ router.put('/:id', LoginHelper.validateAdminToken, function (req, res) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
         } else {
-            Photo.findById(req.params.id, function (err, data) {
+            Album.findById(req.params.id, function (err, data) {
                 res.status(200).json(data);
             });
         }

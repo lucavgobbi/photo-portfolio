@@ -33,7 +33,10 @@ div(class='container')
                     td
                         a(class='btn btn-sm btn-default', ui-sref='adminPhotoDetails({id: photo._id})')
                             i(class='fa fa-edit')  Edit
-
+    div(class='row')
+        a(class='btn btn-default' ng-hide='page == 1' ng-click='prevPage($event)') Prev
+        a(class='btn btn-default' ng-click='nextPage($event)') Next
+        div current page: {{ page }}
     div(class='modal fade', id='albumDialog', role='dialog')
         div(class='modal-dialog')
             div(class='modal-content')

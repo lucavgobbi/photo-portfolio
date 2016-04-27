@@ -36,13 +36,22 @@ router.get('/:id', function (req, res) {
 
 router.get('/:id/photos', function (req, res) {
     //TODO: add owner verification
-    Photo.find({albums: req.params.id }, function (err, data) {
-        if (err) {
-            res.status(500).json({error: true, type: 'internal_error', details: err});
-        } else {
-            res.status(200).json(data);
-        }
-    });
+    Album.findById(req.params.id)
+        .select({ photos: 1 })
+        .populate('photos.photo')
+        .exec(function (err, albums) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else {
+                const photos = albums.photos.map((i) => ({
+                    photoId: i.photo._id,
+                    order: i.order,
+                    title: i.photo.title,
+                    url: i.photo.url
+                }));
+                res.status(200).json(_.sortBy(photos, 'order'));
+            }
+        });
 });
 
 module.exports = router;

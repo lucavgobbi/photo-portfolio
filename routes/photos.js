@@ -4,8 +4,21 @@
 var express = require('express');
 var router = express.Router();
 var Photo = require('../models/photo').Photo;
+var Album = require('../models/album').Album;
 var LoginHelper = new (require('../aux/loginHelper'));
 var easyimg = require('easyimage');
+
+router.get('/page/:page',  function (req, res) {
+    Photo.find({})
+        .limit(50).skip(50 * (req.params.page - 1))
+        .exec(function (err, data) {
+            if (err) {
+                res.status(500).json({error: true, type: 'internal_error', details: err});
+            } else {
+                res.status(200).json(data);
+            }
+        });
+});
 
 router.get('/:id', LoginHelper.validateToken, function (req, res) {
     Photo.findById(req.params.id)
@@ -19,16 +32,6 @@ router.get('/:id', LoginHelper.validateToken, function (req, res) {
             res.status(200).json(data);
         }
     })
-});
-
-router.get('/', LoginHelper.validateToken, function (req, res) {
-    Photo.find(function (err, data) {
-        if (err) {
-            res.status(500).json({error: true, type: 'internal_error', details: err});
-        } else {
-            res.status(200).json(data);
-        }
-    });
 });
 
 router.put('/:id', LoginHelper.validateAdminToken, function (req, res) {
@@ -154,33 +157,33 @@ router.post('/generateThumb', function (req, res) {
 });
 
 router.post('/:id/addToAlbum/:albumId', LoginHelper.validateAdminToken, function (req, res) {
-    Photo.findById(req.params.id, function (err, data) {
+    Album.findById(req.params.albumId, function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
         } else {
-            data.albums.addToSet(req.params.albumId);
-            data.save(function (err, savedPhoto) {
+            data.photos.addToSet({ order: 0, photo: req.params.id });
+            data.save(function (err, savedAlbum) {
                 if (err) {
                     res.status(500).json({error: true, type: 'internal_error', details: err});
                 } else {
-                    res.status(200).json(savedPhoto);
+                    res.status(200).json(savedAlbum);
                 }
             })
         }
-    })
+    });
 });
 
 router.delete('/:id/addToAlbum/:albumId', LoginHelper.validateAdminToken, function (req, res) {
-    Photo.findById(req.params.id, function (err, data) {
+    Album.findById(req.params.albumId, function (err, data) {
         if (err) {
             res.status(500).json({error: true, type: 'internal_error', details: err});
         } else {
-            data.albums.remove(req.params.albumId);
-            data.save(function (err, savedPhoto) {
+            data.photos.remove({ photo: req.params.id });
+            data.save(function (err, savedAlbum) {
                 if (err) {
                     res.status(500).json({error: true, type: 'internal_error', details: err});
                 } else {
-                    res.status(200).json(savedPhoto);
+                    res.status(200).json(savedAlbum);
                 }
             })
         }

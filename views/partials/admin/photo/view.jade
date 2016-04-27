@@ -36,14 +36,6 @@ form(name='form', novalidate=)
                                 a(class='btn btn-sm btn-default', data-loading-text='Loading Albums...' ng-click='openAlbumDialog($event)')
                                     i(class='fa fa-plus')  Add photo to album
                             div(class='clearfix')
-                    div(class='panel-body')
-                        table(class='table table-condensed ')
-                            tbody
-                                tr(ng-repeat='album in photo.albums')
-                                    td {{ album.title }}
-                                    td {{ album.shortDescription }}
-                                    td
-                                        a(class='pull-right btn btn-sm btn-danger', ng-click='removePhotoFromAlbum(album)') Remove
 
             div(class='col-md-6')
                 div(class='form-group', ng-class='{ "has-error": form.url.$error.required }')

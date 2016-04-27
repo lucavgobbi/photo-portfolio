@@ -29,7 +29,7 @@ photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
                     $($event.currentTarget).button('reset');
 
                 });
-        }
+        };
 
         $scope.openAlbumDialog = function ($event) {
             openAlbumDialog($event, $scope, $http);
@@ -48,18 +48,34 @@ photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
             $('#albumDialog').modal('hide');
         };
 
-        $http.get('/api/photos?token=' + $scope.currentUser.token)
-            .success(function (data) {
-                $scope.photos = data.map(function (item) {
-                    return {
-                        _id: item._id,
-                        title: item.title,
-                        shortDescription: item.shortDescription,
-                        description: item.description,
-                        url: item.url
-                    }
-                });
-            })
+        $scope.prevPage = function () {
+            $scope.page--;
+            loadPage($scope.page);
+        };
+
+        $scope.nextPage = function () {
+            $scope.page++;
+            loadPage($scope.page);
+        };
+
+        $scope.page = 1;
+
+        function loadPage(page) {
+            $http.get('/api/photos/page/' + page + '?token=' + $scope.currentUser.token)
+                .success(function (data) {
+                    $scope.photos = data.map(function (item) {
+                        return {
+                            _id: item._id,
+                            title: item.title,
+                            shortDescription: item.shortDescription,
+                            description: item.description,
+                            url: item.url
+                        }
+                    });
+                })
+        }
+
+        loadPage(1);
     }
 ]);
 
@@ -113,10 +129,6 @@ photoCtrl.controller('AdminViewPhoto', ['$scope', '$timeout', '$rootScope', '$st
                 $scope.photo.albums.push($scope.albumToAdd);
                 $('#albumDialog').modal('hide');
             }
-        };
-
-        $scope.removePhotoFromAlbum = function (album) {
-            $scope.photo.albums.splice($scope.photo.albums.indexOf(album), 1);
         };
 
         //New

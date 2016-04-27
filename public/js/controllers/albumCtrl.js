@@ -163,12 +163,17 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
                         $timeout(showCropper);
                     }
 
+                    $scope.removePhotoFromAlbum = function (album) {
+                        $scope.photos.splice($scope.photos.indexOf(album), 1);
+                    };
+
                     //Save function
                     $scope.saveAlbum = function ($event) {
                         $($event.currentTarget).button('loading');
                         if ($scope.album.cover != undefined) {
                             $scope.album.coverDetails = $('#cropper-img').cropper('getData');
                         }
+                        $scope.album.photos = $scope.photos.map((i) => ({ photo: i.photoId, order: i.order }));
                         $http.put('/api/albums/' + $stateParams.id + '?token=' + $scope.currentUser.token, $scope.album)
                             .success(function (data) {
                                 Notification.success('Album saved ;)');
@@ -177,7 +182,7 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
                     }
                 });
 
-            $http.get('/api/albums/' + $stateParams.id + '/photos?token=' + $scope.currentUser.token)
+            $http.get('/api/albums/' + $stateParams.id + '/listPhotos?token=' + $scope.currentUser.token)
                 .success(function (data) {
                     $scope.photos = data;
                 });

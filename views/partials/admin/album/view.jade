@@ -68,8 +68,21 @@ form(name='form', novalidate=)
                     textarea(ng-model='album.description', class='form-control', rows=7, placeholder='Description',
                     data-toggle='tooltip' data-placement='top', title='A full description of the album')
         div(class='row')
-            div(ng-repeat='photo in photos', class='col-md-2')
-                img(ng-src='{{ photo.url }}', class='small-thumbs' title='{{ photo.title }}')
+            table(class='table')
+                thead
+                    th
+                    th Title
+                    th Order
+                    th
+                tbody(class='table-striped')
+                    tr(ng-repeat='photo in photos')
+                        td
+                            img(ng-src='{{ "/thumbs" + photo.url }}', class='xsmall-thumbs' title='{{ photo.title }}')
+                        td {{ photo.title }}
+                        td
+                            input(type="text" ng-model='photo.order')
+                        td
+                            a(class='pull-right btn btn-sm btn-danger', ng-click='removePhotoFromAlbum(photo)') Remove
 
 
     // Photo Dialog Modal

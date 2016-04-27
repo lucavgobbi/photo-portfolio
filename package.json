@@ -18,7 +18,7 @@
     "mongoose": "*",
     "morgan": "*",
     "nodemailer": "^2.2.1",
-    "underscore": "*"
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "mocha": "^2.3.4",
