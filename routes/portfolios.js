@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var Album = require('../models/album').Album;
 var Photo = require('../models/photo').Photo;
+var _ = require('underscore');
 
 router.get('/', function (req, res) {
     var query = Album.find({ type: 'portfolio' });
