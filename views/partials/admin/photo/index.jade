@@ -13,6 +13,11 @@ div(class='container')
             a(class='btn btn-default', data-loading-text='Importing Photos...', ng-click='importPhotos($event)')
                 i(class='fa fa-folder-o')  Import Photos
     div(class='row')
+        div(class='form-inline')
+            div(class='form-group')
+                input(type='text' class='form-control' ng-model='query')
+                a(ng-click='search()' class='btn btn-default') Search
+    div(class='row')
         table(class='table')
             thead
                 th
@@ -34,8 +39,15 @@ div(class='container')
                         a(class='btn btn-sm btn-default', ui-sref='adminPhotoDetails({id: photo._id})')
                             i(class='fa fa-edit')  Edit
     div(class='row')
-        a(class='btn btn-default' ng-hide='page == 1' ng-click='prevPage($event)') Prev
-        a(class='btn btn-default' ng-click='nextPage($event)') Next
+        ul(class='pagination')
+            li(ng-hide='page == 1')
+                a(ng-click='prevPage($event)')
+                    span &laquo;
+            li(ng-repeat='n in pages' ng-class='{ active: n == page }')
+                a(ng-click='loadPage(n)') {{ n }}
+            li(ng-hide='page == pages.length')
+                a(ng-click='nextPage($event)')
+                    span &raquo;
         div current page: {{ page }}
     div(class='modal fade', id='albumDialog', role='dialog')
         div(class='modal-dialog')

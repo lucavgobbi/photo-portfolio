@@ -8,16 +8,34 @@ var Album = require('../models/album').Album;
 var LoginHelper = new (require('../aux/loginHelper'));
 var easyimg = require('easyimage');
 
-router.get('/page/:page',  function (req, res) {
-    Photo.find({})
-        .limit(50).skip(50 * (req.params.page - 1))
-        .exec(function (err, data) {
-            if (err) {
-                res.status(500).json({error: true, type: 'internal_error', details: err});
-            } else {
-                res.status(200).json(data);
-            }
-        });
+router.get('/page/:page', LoginHelper.validateAdminToken, function (req, res) {
+    const query = {};
+    if (req.query.title) {
+        query.title = new RegExp('.*' + req.query.title + '.*', 'gi');
+    }
+    Photo.count(query, function (err, count) {
+        if (err) {
+            res.status(500).json({error: true, type: 'internal_error', details: err});
+        } else {
+            const page = req.params.page;
+            Photo.find(query)
+                .limit(50).skip(50 * (req.params.page - 1))
+                .exec(function (err, data) {
+                    if (err) {
+                        res.status(500).json({error: true, type: 'internal_error', details: err});
+                    } else {
+                        res.status(200).json({
+                            totalCount: count,
+                            totalPages: Math.ceil(count / 50),
+                            currentCount: data.length,
+                            currentPage: page,
+                            data: data
+                        });
+                    }
+                });
+        }
+    });
+
 });
 
 router.get('/:id', LoginHelper.validateToken, function (req, res) {

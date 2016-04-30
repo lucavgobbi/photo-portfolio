@@ -50,20 +50,38 @@ photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
 
         $scope.prevPage = function () {
             $scope.page--;
-            loadPage($scope.page);
+            $scope.loadPage($scope.page);
         };
 
         $scope.nextPage = function () {
             $scope.page++;
-            loadPage($scope.page);
+            $scope.loadPage($scope.page);
         };
 
+        $scope.pages = [1];
         $scope.page = 1;
+        $scope.query = '';
 
-        function loadPage(page) {
-            $http.get('/api/photos/page/' + page + '?token=' + $scope.currentUser.token)
+        $scope.search = function() {
+            $scope.loadPage(1);
+        };
+
+        $scope.loadPage = function(page) {
+            $scope.page = page;
+
+            var query = '';
+            if ($scope.query.trim() != '') {
+                query = '&title=' + $scope.query.trim();
+            }
+
+            $http.get('/api/photos/page/' + page + '?token=' + $scope.currentUser.token + query)
                 .success(function (data) {
-                    $scope.photos = data.map(function (item) {
+                    var pages = [];
+                    for (var i = 1; i <= data.totalPages; i++) {
+                        pages.push(i);
+                    }
+                    $scope.pages = pages;
+                    $scope.photos = data.data.map(function (item) {
                         return {
                             _id: item._id,
                             title: item.title,
@@ -73,9 +91,9 @@ photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
                         }
                     });
                 })
-        }
+        };
 
-        loadPage(1);
+        $scope.loadPage(1);
     }
 ]);
 
@@ -151,7 +169,6 @@ photoCtrl.controller('AdminViewPhoto', ['$scope', '$timeout', '$rootScope', '$st
             $http.get('/api/photos/' + $stateParams.id + '?token=' + $scope.currentUser.token)
                 .success(function (data) {
                     $scope.photo = data;
-                    console.log('Test');
                     $scope.cropperOpt['built'] = function () {
                         $('#cropper-img').cropper('setData', data.thumbDetails);
                     };
