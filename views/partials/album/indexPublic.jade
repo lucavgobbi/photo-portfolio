@@ -1,10 +1,11 @@
 //
    Created by lucavgobbi on 3/21/15.
 
-ul(class='photo-grid')
-    li(ng-repeat='album in albums')
-        a(ui-sref='publicAlbumDetails({id: album.name})')
-            figure
-                img(ng-src='{{ "/thumbs" + album.cover }}', class='medium-thumbs thumbs-padding')
-                figcaption
-                    p {{ album.title }}
+div(class='col-xs-12 col-sm-12 col-md-offset-3 col-md-6')
+    ul(class='photo-grid')
+        li(ng-repeat='album in albums')
+            a(ui-sref='publicAlbumDetails({id: album.name})')
+                figure
+                    img(ng-src='{{ "/thumbs" + album.cover }}', class='medium-thumbs thumbs-padding')
+                    figcaption
+                        p {{ album.title }}

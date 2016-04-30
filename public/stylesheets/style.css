@@ -339,3 +339,16 @@ span.space-15 {
     height: 150px;
     padding-top: 30px;
 }
+
+/* ------------------------------------- */
+
+.photosList {
+    list-style-type: none;
+}
+
+.photosList > li {
+    color: #fff;
+    float: left;
+    font-weight: 700;
+    text-align: center;
+}

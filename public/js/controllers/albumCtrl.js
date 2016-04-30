@@ -173,7 +173,10 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
                         if ($scope.album.cover != undefined) {
                             $scope.album.coverDetails = $('#cropper-img').cropper('getData');
                         }
-                        $scope.album.photos = $scope.photos.map((i) => ({ photo: i.photoId, order: i.order }));
+                        var order = 0;
+                        $scope.album.photos = $scope.photos.map(function (i) {
+                            return { photo: i.photoId, order: order++ }
+                        });
                         $http.put('/api/albums/' + $stateParams.id + '?token=' + $scope.currentUser.token, $scope.album)
                             .success(function (data) {
                                 Notification.success('Album saved ;)');

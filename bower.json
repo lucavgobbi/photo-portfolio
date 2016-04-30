@@ -25,7 +25,8 @@
     "cropper": "*",
     "angular-animate": "*",
     "bootstrap": "*",
-    "jquery": "*"
+    "jquery": "*",
+    "angular-drag-and-drop-lists": "*"
   },
   "resolutions": {
     "angular": "1.4.5"

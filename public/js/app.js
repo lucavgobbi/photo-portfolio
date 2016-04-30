@@ -2,7 +2,7 @@
  * Created by lucavgobbi on 3/21/15.
  */
 var ppApp = angular.module('ppApp', ['ui.router', 'ngSanitize', 'homeCtrl', 'albumCtrl',
-    'photoCtrl', 'userCtrl', 'portfolioCtrl', 'loginModalCtrl', 'loginService']);
+    'photoCtrl', 'userCtrl', 'portfolioCtrl', 'loginModalCtrl', 'loginService', 'dndLists']);
 
 ppApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider',
     function ($locationProvider, $stateProvider, $urlRouterProvider) {
