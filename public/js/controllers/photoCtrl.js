@@ -36,10 +36,9 @@ photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
         };
 
         $scope.addPhotosToAlbum = function () {
-            var selectedPhotos = $('.add-to-album:checked');
             var selectedAlbum = $scope.albumToAdd;
-            _.each(selectedPhotos, function (inputHtml) {
-                var photoId = $(inputHtml).data('id');
+            _.each($scope.selectedPhotos, function (photo) {
+                var photoId = photo._id;
                 $http.post('/api/photos/' + photoId + '/addToAlbum/' + selectedAlbum._id + '?token=' + $scope.currentUser.token)
                     .success(function (photo) {
                         Notification.success(photo.title + ' added to album ' + selectedAlbum.title);
@@ -56,6 +55,16 @@ photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
         $scope.nextPage = function () {
             $scope.page++;
             $scope.loadPage($scope.page);
+        };
+        
+        $scope.selectedPhotos = [];
+
+        $scope.selectPhoto = function(photo) {
+            $scope.selectedPhotos.push(photo);
+        };
+
+        $scope.removePhotoFromSelected = function (photo) {
+            $scope.selectedPhotos.splice($scope.selectedPhotos.indexOf(photo), 1);
         };
 
         $scope.pages = [1];

@@ -7,8 +7,7 @@ div(class='container')
             a(class='btn btn-success', href='/admin/photo/new')
                 i(class='fa fa-plus')  Add new photo
             span(class='space-5')
-            a(class='btn btn-default', data-loading-text='Loading Albums...', ng-click='openAlbumDialog($event)')
-                i(class='fa fa-folder-o')  Add photos to album
+
             span(class='space-5')
             a(class='btn btn-default', data-loading-text='Importing Photos...', ng-click='importPhotos($event)')
                 i(class='fa fa-folder-o')  Import Photos
@@ -17,10 +16,19 @@ div(class='container')
             div(class='form-group')
                 input(type='text' class='form-control' ng-model='query')
                 a(ng-click='search()' class='btn btn-default') Search
+    div(class='row padding-top-10')
+        ul(class='photosList')
+            li(ng-repeat='photo in selectedPhotos')
+                img(ng-src='{{ "/thumbs" + photo.url }}', class='xsmall-thumbs')
+                br
+                a(class='', ng-click='removePhotoFromSelected(photo)') Remove
+    div(class='row padding-top-10')
+        a(ng-show='selectedPhotos.length > 0' class='btn btn-default', data-loading-text='Loading Albums...', ng-click='openAlbumDialog($event)')
+            i(class='fa fa-folder-o')  Add selected photos to album
+        br
     div(class='row')
         table(class='table')
             thead
-                th
                 th
                 th Title
                 th Short Description
@@ -29,8 +37,6 @@ div(class='container')
             tbody(class='table-striped')
                 tr(ng-repeat='photo in photos')
                     td
-                        input(type='checkbox', class='add-to-album', data-id='{{ photo._id }}')
-                    td
                         img(ng-src='{{ "/thumbs" + photo.url }}', class='xsmall-thumbs' title='{{ photo.title }}')
                     td {{ photo.title }}
                     td {{ photo.shortDescription }}
@@ -38,6 +44,7 @@ div(class='container')
                     td
                         a(class='btn btn-sm btn-default', ui-sref='adminPhotoDetails({id: photo._id})')
                             i(class='fa fa-edit')  Edit
+                        a(class='btn btn-sm btn-default' ng-click='selectPhoto(photo)') Select
     div(class='row')
         ul(class='pagination')
             li(ng-hide='page == 1')
