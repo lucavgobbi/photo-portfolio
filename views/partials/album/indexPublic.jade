@@ -6,6 +6,6 @@ div(class='col-xs-12 col-sm-12 col-md-offset-1 col-md-10')
         li(ng-repeat='album in albums')
             a(ui-sref='publicAlbumDetails({id: album.name})')
                 figure
-                    img(ng-src='{{ "/thumbs" + album.cover }}', class='medium-thumbs thumbs-padding')
+                    img(ng-src='{{ "/thumbs" + album.cover }}', class='medium-thumbs thumbs-padding' alt='{{album.name}}')
                     figcaption
                         p {{ album.title }}

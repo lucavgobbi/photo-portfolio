@@ -10,7 +10,7 @@ div(class='col-xs-12 col-sm-12 col-md-10 col-lg-10')
     div(id='links')
         a(ng-repeat='photo in photos', ng-click='avoidClick($event)', href='{{ photo.url }}', title='{{ photo.title }}', data-gallery)
             img(ng-src='{{ "/thumbs" + photo.url }}', class='medium-thumbs thumbs-padding' title='{{ photo.title }}'
-            id='p{{ photo._id }}')
+            id='p{{ photo._id }}' alt='{{ photo.title }}')
 
     div(class='blueimp-gallery', id='blueimp-gallery', data-use-bootstrap-modal="false")
         div(class='slides')

@@ -10,6 +10,6 @@ div(class='col-xs-12 col-sm-12 col-md-10 col-lg-10')
         li(ng-repeat='portfolio in portfolios')
             a(ui-sref='portfolioDetails({id: portfolio.name})')
                 figure
-                    img(ng-src='{{ "/thumbs" + portfolio.cover }}', class='medium-thumbs thumbs-padding')
+                    img(ng-src='{{ "/thumbs" + portfolio.cover }}', class='medium-thumbs thumbs-padding' alt='{{portfolio.name}}')
                     figcaption
                         p {{ portfolio.title }}
