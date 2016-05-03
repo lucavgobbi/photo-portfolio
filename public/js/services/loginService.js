@@ -18,7 +18,7 @@ loginService.factory('loginModal', ['$modal', '$rootScope',
         }
 
         return function() {
-            let user = localStorage.getItem('photo-portifolio-user');
+            var user = localStorage.getItem('photo-portifolio-user');
             if (user) {
                 user = JSON.parse(user);
                 if (user.expires > Math.floor(Date.now() / 1000)) {
