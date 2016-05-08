@@ -173,6 +173,9 @@ albumCtrl.controller('AdminViewAlbum', ['$scope', '$timeout', '$state', '$stateP
                         if ($scope.album.cover != undefined) {
                             $scope.album.coverDetails = $('#cropper-img').cropper('getData');
                         }
+
+                        $scope.album.cover = $scope.album.cover.photoId;
+
                         var order = 0;
                         $scope.album.photos = $scope.photos.map(function (i) {
                             return { photo: i.photoId, order: order++ }

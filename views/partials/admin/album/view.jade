@@ -54,7 +54,7 @@ form(name='form', novalidate=)
                 div(class='form-group')
                     label Album Cover
                     input(class='form-control', type='text', ng-model='album.cover', typeahead-on-select='reloadCropper()',
-                    typeahead='photo as photo.title for photo in photos | filter: { title: $viewValue } | limitTo:8',
+                    typeahead='photo as photo.title for photo in photos | filter: { title: $viewValue } | limitTo:20',
                     typeahead-template-url="photoThumbsTemplate.html",
                     data-toggle='tooltip' data-placement='top', title='Cover photo for the album, start typing to view available photos')
                     br
