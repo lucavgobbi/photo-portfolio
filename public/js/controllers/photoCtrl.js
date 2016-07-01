@@ -63,6 +63,13 @@ photoCtrl.controller('AdminListPhotos', ['$scope','$http', 'Notification',
             $scope.selectedPhotos.push(photo);
         };
 
+        $scope.selectAllPhotos = function() {
+            $scope.selectedPhotos = [];
+            _.each($scope.photos, function (photo) {
+                $scope.selectedPhotos.push(photo);
+            });
+        };
+
         $scope.removePhotoFromSelected = function (photo) {
             $scope.selectedPhotos.splice($scope.selectedPhotos.indexOf(photo), 1);
         };

@@ -20,6 +20,7 @@ router.get('/page/:page', LoginHelper.validateAdminToken, function (req, res) {
             const page = req.params.page;
             Photo.find(query)
                 .limit(50).skip(50 * (req.params.page - 1))
+                .sort({ title: 1 })
                 .exec(function (err, data) {
                     if (err) {
                         res.status(500).json({error: true, type: 'internal_error', details: err});
@@ -131,15 +132,24 @@ router.post('/import', LoginHelper.validateAdminToken, function (req, res) {
 function cropAndResize (photo, callback) {
     "use strict";
     var dst = appConfig.appPath + 'public/thumbs' + photo.url;
-    easyimg.crop({
+    var cropParams = {
         src: appConfig.appPath + 'public' + photo.url,
         dst: dst,
-        cropwidth: parseInt(photo.thumbDetails.width),
-        cropheight: parseInt(photo.thumbDetails.height),
-        gravity:'NorthWest',
         x: parseInt(photo.thumbDetails.x),
         y: parseInt(photo.thumbDetails.y)
-    }).then(function (image) {
+    };
+    if (photo.thumbDetails && photo.thumbDetails.x && photo.thumbDetails.y) {
+        cropParams.cropwidth = parseInt(photo.thumbDetails.width);
+        cropParams.cropheight = parseInt(photo.thumbDetails.height);
+        cropParams.gravity = 'NorthWest';
+    } else {
+        cropParams.gravity = 'Center';
+        cropParams.cropwidth = 1000;
+        cropParams.cropheight = 1000;
+    }
+
+    easyimg.crop(cropParams)
+    .then(function (image) {
         easyimg.resize({
             src: dst,
             dst: dst,
@@ -156,7 +166,11 @@ function cropAndResize (photo, callback) {
 }
 
 router.post('/generateThumb', function (req, res) {
-    Photo.find()
+    const query = {};
+    if (req.query.title) {
+        query.title = new RegExp('.*' + req.query.title + '.*', 'gi');
+    }
+    Photo.find(query)
         .exec(function (err, data) {
             if (err) {
                 res.status(500).json({error: true, type: 'internal_error', details: err});

@@ -11,6 +11,9 @@ div(class='container')
             span(class='space-5')
             a(class='btn btn-default', data-loading-text='Importing Photos...', ng-click='importPhotos($event)')
                 i(class='fa fa-folder-o')  Import Photos
+            span(class='space-5')
+                a(class='btn btn-default', data-loading-text='Selecting Photos...', ng-click='selectAllPhotos($event)')
+                    i(class='fa fa-check')  Select All on page
     div(class='row')
         div(class='form-inline')
             div(class='form-group')
