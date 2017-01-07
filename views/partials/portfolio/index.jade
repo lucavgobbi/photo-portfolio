@@ -6,10 +6,10 @@ div(class='hidden-xs hidden-sm col-md-2 col-lg-2')
         p(class='padding-top-10 ' ng-repeat='portfolio in portfolios')
             a(class='side-link' ui-sref='portfolioDetails({id: portfolio.name})') {{ portfolio.title }}
 div(class='col-xs-12 col-sm-12 col-md-10 col-lg-10')
-    ul(class='photo-grid')
+    ul(class='photo-grid-3')
         li(ng-repeat='portfolio in portfolios')
             a(ui-sref='portfolioDetails({id: portfolio.name})')
                 figure
-                    img(ng-src='{{ "/thumbs" + portfolio.cover }}', class='medium-thumbs thumbs-padding' alt='{{portfolio.name}}')
+                    img(ng-src='{{ "/thumbs" + portfolio.cover }}', class='large-thumbs thumbs-padding' alt='{{portfolio.name}}')
                     figcaption
                         p {{ portfolio.title }}

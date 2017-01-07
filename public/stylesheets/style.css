@@ -221,12 +221,16 @@ span.small-text {
 }
 
 .medium-thumbs {
-    height:200px; !important;
+    height:250px!important;
 }
+
+.large-thumbs {
+    height:330px!important;
+}
+
 
 .thumbs-padding {
     padding-left: 5px;
-    padding-bottom: 5px;
 }
 
 .big-thumbs {
@@ -315,6 +319,70 @@ span.small-text {
 }
 
 .photo-grid li:hover figcaption p {
+    -moz-transform: translateY(40px);
+    -webkit-transform: translateY(40px);
+    transform: translateY(40px);
+}
+
+.photo-grid-3 {
+    padding-left: 0px;
+    max-width: 1106px;
+    text-align: center;
+}
+
+.photo-grid-3 li {
+    display: inline-block;
+    width: 330px;
+}
+
+.photo-grid-3 img {
+    display: block;
+    height: auto;
+}
+
+.photo-grid-3 figure {
+    height: 330px;
+    overflow: hidden;
+    position: relative;
+    width: 330px;
+}
+
+.photo-grid-3 figcaption {
+    background: rgba(0,0,0,0.8);
+    color: white;
+    display: table;
+    height: 100%;
+    left: 5px;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-transition: all 300ms;
+    -moz-transition: all 300ms;
+    transition: all 300ms;
+    -webkit-transition-delay: 100ms;
+    -moz-transition-delay: 100ms;
+    transition-delay: 100ms;
+    z-index: 100;
+}
+
+.photo-grid-3 figcaption p {
+    display: table-cell;
+    font-size: 1.5em;
+    position: relative;
+    top: -40px;
+    width: 330px;
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
+    vertical-align: middle;
+}
+
+.photo-grid-3 li:hover figcaption {
+    opacity: 1;
+}
+
+.photo-grid-3 li:hover figcaption p {
     -moz-transform: translateY(40px);
     -webkit-transform: translateY(40px);
     transform: translateY(40px);
